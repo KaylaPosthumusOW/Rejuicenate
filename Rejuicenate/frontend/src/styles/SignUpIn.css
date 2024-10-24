@@ -1,0 +1,42 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+img {
+    display: block;
+    width: 100%;  
+    height: 92vh;  
+    object-fit: cover; 
+    margin-left: -20px;
+}
+
+.signUpform{
+    width: 30%;
+    margin-top: 4%;
+}
+
+.form2{
+    width: 30%;
+    margin-top: 9%;
+}
+
+.link{
+    color: #C65B7C;
+}
+
+.link2{
+    color: #4C956C;
+}
+
+
+.formInput{
+    background-color: #FEF9F3;
+    border: 1.5px solid #4C956C;
+}
+
+.formInput2{
+    background-color: #FEF9F3;
+    border: 1.5px solid #C65B7C;
+}

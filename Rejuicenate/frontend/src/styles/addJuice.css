@@ -1,0 +1,27 @@
+.form{
+    background-color: #C65B7C;
+    width: 100%;
+    padding: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
+    border-radius: 20px;
+    color: white;
+}
+
+.addButton{
+    background-color: transparent;
+    color: rgb(240, 240, 240);
+    border: none;
+}
+
+.addButton:hover{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.line{
+    width: 100%;
+    height: auto;
+    margin: 50px 0;
+}

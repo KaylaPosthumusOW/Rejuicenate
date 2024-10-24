@@ -1,0 +1,51 @@
+.user-card {
+    border: 1px solid #201E1F;
+    border-radius: 10px;
+  }
+  
+  .user-image {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make the image circular */
+    margin: 0 auto;
+  }
+
+  .top-bg{
+    background-color: #F1A208;
+    height: 110px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .name{
+    text-align: center;
+  }
+  
+  .stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .stat-label {
+    font-size: 14px;
+    color: #757575; /* Optional: a lighter color for labels */
+    margin-top: -5px; /* Reduce gap between number and label */
+  }
+  
+  .search{
+    border: 2px solid #201E1F;
+    background-color: transparent;
+    border-radius: 25px;
+    margin-left: 10px;
+  }
+
+  .search-btn{
+    width: 40px;
+    height: 40px;
+    background-color: #201E1F;
+    border: 2px solid #201E1F;
+    border-radius: 20px;
+  }

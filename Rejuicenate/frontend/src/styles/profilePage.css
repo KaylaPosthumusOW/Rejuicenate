@@ -1,0 +1,26 @@
+.profile-img{
+    width: 50%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+  
+.profile-email {
+    font-size: 1rem;
+    color: #555;
+}
+
+.background-profile{
+    background-color: #4C956C;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.user-info{
+    margin-left: 30px;
+}

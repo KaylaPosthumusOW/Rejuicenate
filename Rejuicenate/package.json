@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "concurrently": "^9.0.1",
+    "react-bootstrap": "^2.10.5"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server --prefix backend\" \"npm start --prefix frontend\"",
+    "server": "nodemon backend/server.js"
+  }
+}

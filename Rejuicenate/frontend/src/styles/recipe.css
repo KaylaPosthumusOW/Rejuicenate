@@ -1,0 +1,9 @@
+.juice-image{
+    margin-top: -48px;
+    margin-left: 72.5px;
+    width: 130%;
+    height: 80vh;
+    object-fit: cover; /* Cover the entire area, cutting off parts of the image */
+    object-position: center;
+    border-bottom-left-radius: 200px;
+}

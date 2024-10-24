@@ -1,0 +1,21 @@
+.background{
+    background-color: #4C956C;
+    padding: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
+    border-radius: 20px;
+    color: white;
+}
+
+.space{
+    width: 20px;
+}
+
+.background-pink{
+    background-color: #F1A208;
+    padding: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
+    border-radius: 20px;
+    color: #201E1F;
+}

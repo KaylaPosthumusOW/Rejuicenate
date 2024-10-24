@@ -1,0 +1,32 @@
+  .adminNav {
+    height: 60px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: #201E1F;
+    padding: 0 40px;
+  }
+  
+  .adminNav p {
+    margin: 0 30px; 
+    font-size: 1rem;
+    color: #FEF9F3;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .adminNav p:hover {
+    color: #4C956C;
+  }
+  
+  .active-link p {
+    color: #4C956C !important;
+    font-weight: 700; 
+    padding: 8px;
+  }
+
+  .active-link{
+
+    text-decoration: none;
+  }
+  

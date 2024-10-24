@@ -1,0 +1,41 @@
+.card {
+  border-radius: 20px; /* Rounded corners */
+  overflow: hidden; /* Ensure the image doesn't overflow */
+  position: relative; /* Allow absolute positioning of card content */
+}
+
+.juice-img {
+  width: 110%; /* Full width of the card */
+  height: 100%; /* Full height of the card */
+  object-fit: cover; /* Cover the entire area, cutting off parts of the image */
+  object-position: center; /* Center the image in the view */
+  border: none;
+  transition: transform 0.4s ease; /* Smooth transition */
+}
+
+.card:hover .juice-img {
+  transform: scale(1.1); /* Scale image on hover */
+}
+
+.card-content {
+  position: absolute; /* Position overlay */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  right: 0; /* Align to the right */
+  bottom: 0; /* Align to the bottom */
+  display: flex; /* Use flexbox for centering */
+  flex-direction: column; /* Arrange items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  color: #fff; /* White text color */
+  text-align: center; /* Center text */
+  padding-top: 250px; /* Adjust as needed */
+  padding-left: 50px; /* Adjust as needed */
+  padding-right: 50px; /* Adjust as needed */
+  border: none; /* Remove border */
+}
+
+.filters{
+  padding-bottom: 40px;
+}
