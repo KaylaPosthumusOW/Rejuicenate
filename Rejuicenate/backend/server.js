@@ -42,6 +42,9 @@ app.use('/categories', categoryRoutes);
 const juiceRoutes = require('./routes/juiceRoutes');
 app.use('/juices', juiceRoutes);
 
+const likedJuicesRoutes = require('./routes/likedJuicesRoutes');
+app.use('/likedJuices', likedJuicesRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

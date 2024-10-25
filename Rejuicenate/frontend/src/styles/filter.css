@@ -1,0 +1,46 @@
+/* filter.css */
+
+.filter {
+    width: 200px; /* Set the desired width */
+  }
+  
+  /* Offcanvas header styles */
+  .filter .offcanvas-header {
+    background-color: #FEF9F3; /* Header background color */
+    border-bottom: 1px solid #201E1F; /* Optional border */
+  }
+
+  .filter .offcanvas-body{
+    background-color: #FEF9F3;
+  }
+  
+  /* List item styles */
+  .filter ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+  }
+  
+  /* Button styles */
+  .filter .btn-link {
+    color: #201E1F; /* Link color */
+    text-align: left; /* Align text to the left */
+    text-decoration: none;
+  }
+  
+  /* Button hover styles */
+  .filter .btn-link:hover {
+    color: #397051; /* Darker blue on hover */
+    background-color: rgba(76, 149, 108, 0.2); /* Light blue background on hover */
+  }
+  
+  /* Selected button styles */
+  .filter .btn-primary {
+    background-color: #4C956C; /* Selected button background color */
+    border-color: #4C956C; /* Selected button border color */
+  }
+  
+  /* Selected button hover styles */
+  .filter .btn-primary:hover {
+    background-color: #4C956C; /* Darker blue on hover */
+  }
+  

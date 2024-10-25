@@ -3,10 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import axios from 'axios';
 import PrimaryBtn from '../Buttons/primaryBtn';
+import "../styles/filter.css"
 
-function Filter() {
+function Filter({ onFilterChange }) {
   const [show, setShow] = useState(false);
-  const [categories, setCategories] = useState([]); // State to hold categories
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(new Set());
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,8 +17,8 @@ function Filter() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/categories'); // Update with your categories endpoint
-        setCategories(response.data); // Assuming response.data is an array of categories
+        const response = await axios.get('http://localhost:5001/categories'); // Your categories endpoint
+        setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -24,20 +26,35 @@ function Filter() {
     fetchCategories();
   }, []);
 
+  // Handle category selection
+  const handleFilter = (categoryId) => {
+    const newSelectedCategories = new Set(selectedCategories);
+    if (newSelectedCategories.has(categoryId)) {
+      newSelectedCategories.delete(categoryId); // Deselect if already selected
+    } else {
+      newSelectedCategories.add(categoryId); // Select the category
+    }
+    setSelectedCategories(newSelectedCategories);
+    onFilterChange(Array.from(newSelectedCategories)); // Pass selected categories back to parent
+
+    handleClose(); // Close the offcanvas after selecting a category
+  };
+
   return (
     <>
-      <PrimaryBtn variant="primary" onClick={handleShow} label="Filter Categories">
-      </PrimaryBtn>
-
-      <Offcanvas show={show} onHide={handleClose} placement="end">
+      <PrimaryBtn variant="primary" onClick={handleShow} label="Filter Categories" />
+      <Offcanvas show={show} onHide={handleClose} placement="end" className="filter" style={{ width: '300px' }}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Filter by Category</Offcanvas.Title>
+          <Offcanvas.Title><h3>Filter by Category</h3></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul>
             {categories.map((category) => (
               <li key={category._id}>
-                <Button variant="link" onClick={() => handleFilter(category._id)}>
+                <Button
+                  variant={selectedCategories.has(category._id) ? 'primary' : 'link'}
+                  onClick={() => handleFilter(category._id)}
+                >
                   {category.category}
                 </Button>
               </li>
@@ -48,11 +65,5 @@ function Filter() {
     </>
   );
 }
-
-// Function to handle filtering by category
-const handleFilter = (categoryId) => {
-  // Implement your filtering logic here
-  console.log("Filtering by category ID:", categoryId);
-};
 
 export default Filter;

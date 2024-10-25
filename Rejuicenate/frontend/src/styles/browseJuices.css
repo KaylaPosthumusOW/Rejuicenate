@@ -27,15 +27,54 @@
   flex-direction: column; /* Arrange items vertically */
   justify-content: center; /* Center items vertically */
   align-items: center; /* Center items horizontally */
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  background-color: rgba(32, 30, 31, 0.6); /* Semi-transparent overlay */
   color: #fff; /* White text color */
   text-align: center; /* Center text */
   padding-top: 250px; /* Adjust as needed */
-  padding-left: 50px; /* Adjust as needed */
-  padding-right: 50px; /* Adjust as needed */
+  padding-left: 20px; /* Adjust as needed */
+  padding-right: 20px; /* Adjust as needed */
   border: none; /* Remove border */
 }
 
 .filters{
   padding-bottom: 40px;
+}
+
+.browse-link{
+  color: #4C956C;
+}
+
+/* Review */
+.review-bg{
+  background-color: #EDEDED;
+  border-radius: 10px;
+  position: relative;
+}
+
+.userInfo-bg{
+  width: 80%;
+  height: 70px;
+  background-color: #FEF9F3;
+  position: absolute; /* Make it absolute to position it relative to .review-bg */
+  left: 0; /* Align to the left */
+  bottom: 0; 
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 30px;
+  border: 1px solid #EDEDED;
+}
+
+.commentText{
+  margin-bottom: 90px;
+}
+
+.comment-icon{
+  margin-bottom: 20px;
+}
+
+.user-img{
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #4C956C;
+  margin-left: 30px;
 }

@@ -18,7 +18,7 @@ function JuiceCard({ juices }) {
                     className="juice-img"
                   />
                   <div className="card-content">
-                    <h4 className="mb-3">{juice.juiceName}</h4>
+                    <h2 className="mb-3">{juice.juiceName}</h2>
                     <PrimaryBtn label="Recipe" />
                   </div>
                 </div>
@@ -26,7 +26,7 @@ function JuiceCard({ juices }) {
             </Col>
           ))
         ) : (
-          <p>No juices found. Please add some!</p>
+          <p>No juices found. <Link className="browse-link" to="/browseJuices">Browse Juices!</Link></p>
         )}
       </Row>
     </Container>

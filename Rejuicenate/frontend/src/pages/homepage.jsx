@@ -40,7 +40,7 @@ function Homepage() {
           <div className="line"></div>
         </div>
 
-        <h2 className="mt-3">Suggested Juices</h2>
+        <h2 className="mt-5 mb-3">Suggested Juices</h2>
         
         {/* Pass only the first four juices to JuiceCard */}
         <JuiceCard juices={firstFourJuices} />
