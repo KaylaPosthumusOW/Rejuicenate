@@ -59,4 +59,11 @@
     font-family: "Font Awesome 5 Free"; /* Ensure FontAwesome font is applied */
     font-weight: 700; /* To ensure it displays the filled heart */
   }
+
+  /* review */
+  
+.star-icon {
+    color: gold; /* Change to desired star color */
+    margin-right: 2px; /* Spacing between stars */
+  }
   

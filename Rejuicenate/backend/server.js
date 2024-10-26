@@ -45,6 +45,11 @@ app.use('/juices', juiceRoutes);
 const likedJuicesRoutes = require('./routes/likedJuicesRoutes');
 app.use('/likedJuices', likedJuicesRoutes);
 
+const reviewRoutes = require('./routes/reviewRoutes');
+app.use('/reviews', reviewRoutes)
+
+// -----------------------------------------------
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -46,21 +46,26 @@
 
 /* Review */
 .review-bg{
-  background-color: #EDEDED;
   border-radius: 10px;
   position: relative;
+  border: 2px solid #2b2b2b;
 }
 
 .userInfo-bg{
   width: 80%;
   height: 70px;
-  background-color: #FEF9F3;
+  background-color: #2b2b2b;
   position: absolute; /* Make it absolute to position it relative to .review-bg */
   left: 0; /* Align to the left */
   bottom: 0; 
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 7px;
   border-top-right-radius: 30px;
-  border: 1px solid #EDEDED;
+  border-top: 2px solid #2b2b2b;
+  border-right: 2px solid #2b2b2b;
+}
+
+.userInfo-bg p{
+  color: white;
 }
 
 .commentText{
@@ -68,13 +73,49 @@
 }
 
 .comment-icon{
-  margin-bottom: 20px;
+  color: #2b2b2b;
 }
 
 .user-img{
-  width: 50px;
-  height: 50px;
+  width: 50px !important;
+  height: 50px !important;
   border-radius: 25px;
   background-color: #4C956C;
   margin-left: 30px;
+}
+
+.filled-star {
+  color: gold; /* or any color you prefer */
+}
+
+.empty-star {
+  border: 2px solid gold /* or any color you prefer */
+}
+
+.user-img {
+  width: 40px; /* Adjust size as necessary */
+  height: 40px;
+  border-radius: 50%; /* Make it round */
+  margin-right: 10px; /* Spacing between image and text */
+}
+
+
+/* Add Review */
+.star-rating .star {
+  color: #6b6b6b; /* Default star color */
+  transition: color 0.2s;
+}
+
+.star-rating .star.filled {
+  color: #ffc107; /* Yellow for filled stars */
+}
+
+.star-icon {
+  color: gold; /* Change to desired star color */
+  margin-right: 2px; /* Spacing between stars */
+}
+
+.form-control{
+  background-color: #FEF9F3;
+    border: 1.5px solid #4C956C;
 }
