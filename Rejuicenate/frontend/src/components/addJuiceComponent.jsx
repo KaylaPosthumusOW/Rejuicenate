@@ -74,6 +74,7 @@ function AddJuiceComponent() {
             <Form.Label>Juice Name</Form.Label>
             <Form.Control
               type="text"
+              style={{ border: '2px solid #95445D' }}
               value={juiceName}
               onChange={(e) => setJuiceName(e.target.value)}
               placeholder="Enter a catchy name for your juice"
@@ -88,6 +89,7 @@ function AddJuiceComponent() {
               <div key={index} className="mb-2">
                 <Form.Control
                   type="text"
+                  style={{ border: '2px solid #95445D' }}
                   value={ingredient}
                   onChange={(e) => {
                     const newIngredients = [...ingredients];
@@ -112,6 +114,7 @@ function AddJuiceComponent() {
                 <Form.Control
                   type="text"
                   value={instruction}
+                  style={{ border: '2px solid #95445D' }}
                   onChange={(e) => {
                     const newInstructions = [...instructions];
                     newInstructions[index] = e.target.value;
@@ -133,6 +136,7 @@ function AddJuiceComponent() {
             <Form.Control
               as="select"
               value={selectedCategory}
+              style={{ border: '2px solid #95445D' }}
               onChange={(e) => setSelectedCategory(e.target.value)}
               required
             >
@@ -148,7 +152,7 @@ function AddJuiceComponent() {
           {/* Image Upload */}
           <Form.Group className="mb-3">
             <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} />
+            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} style={{ border: '2px solid #95445D' }} />
           </Form.Group>
 
           {/* Submit Button */}

@@ -1,6 +1,6 @@
 .profile-img{
-    width: 20%;
-    height: auto;
+    width: 320px;
+    height: 320px;
     border-radius: 50%;
     border: 7px solid #FEF9F3;
 }
@@ -24,11 +24,89 @@
 
 .colour-bg-profile{
     width: 100%;
-    height: 220px;
+    height: 260px;
     background-color: #70AA89;
     padding-top: 70px;
 }
 
-.test{
-    margin-top: 30%;
+.personal-info{
+    margin-top: 140px;
+    text-align: right;
 }
+
+.personalInfo-click{
+    color: #C65B7C;
+    text-decoration: underline;
+}
+
+/* Modal */
+
+.modal-content {
+    background-color: #FEF9F3;
+    padding: 20px;
+  }
+
+  /* Add this to your CSS file */
+form div {
+    margin-bottom: 1rem; /* Space between fields */
+  }
+  
+  input[type="text"],
+  input[type="email"] {
+    width: 100%; /* Full-width inputs */
+    padding: 0.5rem; /* Add some padding */
+    border: 1.5px solid #4C956C; /* Default border */
+    border-radius: 0.25rem; /* Rounded corners */
+    background-color: #FEF9F3;
+  }
+
+  .profile-image-preview {
+    width: 200px; /* Set the width you want */
+    height: 200px; /* Set the height you want */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    margin-bottom: 15px; /* Adds space below the image */
+    margin: 0 auto;
+  }
+
+  .transparent{
+    background-color: transparent;
+    color: transparent;
+    border: none;
+  }
+
+  .file-input-container {
+    margin-left: 125px;
+    margin-top: -30px;
+  }
+  
+  .transparent {
+    display: none; /* Hide the default input */
+  }
+  
+  .custom-file-upload {
+    display: inline-block;
+    padding: 5px 10px; /* Adjust padding as needed */
+    cursor: pointer;
+    background-color: #70AA89; /* Button color */
+    color: white; /* Text color */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+    
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #4C956C; /* Darker shade on hover */
+  }
+  
+  /* Optional: Additional styles for the label */
+  .custom-file-upload:active {
+    transform: scale(0.95); /* Scale effect on click */
+  }
+  
+
+
+
+  
+  
+  

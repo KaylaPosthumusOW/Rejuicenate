@@ -22,7 +22,7 @@ function ReviewCard({ commentText, personalTip, userProfileImage, userName, rati
   };
 
   const profileImageUrl = userProfileImage 
-    ? `http://localhost:5001/images/${userProfileImage}` 
+    ? `http://localhost:5001/profileImages/${userProfileImage}` 
     : 'http://localhost:5001/images/default.png';
 
   return (

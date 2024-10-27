@@ -1,21 +1,118 @@
-.background{
+/* General Styles */
+.background {
     background-color: #4C956C;
-    padding: 50px;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding: 40px 120px;
     border-radius: 20px;
-    color: white;
+    color: #FEF9F3;
 }
 
-.space{
-    width: 20px;
-}
-
-.background-pink{
+.background-yellow {
     background-color: #F1A208;
-    padding: 50px;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding: 40px 120px;
     border-radius: 20px;
     color: #201E1F;
 }
+
+.background-pink {
+    background-color: #C65B7C;
+    padding: 40px 120px;
+    border-radius: 20px;
+    color: #FEF9F3;
+}
+
+.weight{
+    margin-top: -1.2rem;
+}
+
+.form-control, .form-select {
+    background-color: #FEF9F3 !important;
+}
+
+.pills, .pills2 {
+    background-color: #FEF9F3 !important;
+    font-family: "Lato", sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    border-radius: 30px;
+    padding: 5px 15px;
+}
+
+.pills {
+    border: 2px solid #B57A06;
+    color: #201E1F;
+}
+
+.pills2 {
+    border: 2px solid #95445D;
+    color: #201E1F;
+}
+
+/* Multi-Step Form Animation */
+.step-1, .step-2, .step-3 {
+    position: absolute;
+    width: 100%;
+    transition: transform 1s ease-in-out;
+    /* Ensures smooth transitions */
+  }
+  
+  .step-1-active {
+    transform: translateX(0);
+  }
+  
+  .step-2-active {
+    transform: translateX(-100%);
+  }
+  
+  .step-3-active {
+    transform: translateX(-200%);
+  }
+  
+
+  /* Slider */
+  /* Slider.css */
+
+.form-range {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 100%;
+    height: 8px; /* Track height */
+    background: #c18296; /* Track color */
+    border-radius: 5px; /* Rounded track */
+    outline: none; /* Remove outline */
+    transition: background 0.3s; /* Transition effect for the background */
+  }
+  
+  .form-range::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none; /* Remove default styling */
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    background: #95445D; /* Thumb color */
+    border-radius: 50%; /* Round thumb */
+    cursor: pointer; /* Cursor type */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  }
+  
+  .form-range::-moz-range-thumb {
+    width: 20px; /* Thumb width */
+    height: 20px; /* Thumb height */
+    background: #95445D; /* Thumb color */
+    border-radius: 50%; /* Round thumb */
+    cursor: pointer; /* Cursor type */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  }
+  
+  /* Change track color when the slider is being dragged */
+  .form-range:active {
+    background: #c18296 !important; /* Change track color */
+  }
+  
+  .form-range::-webkit-slider-runnable-track {
+    height: 8px; /* Track height */
+    border-radius: 5px; /* Rounded track */
+  }
+  
+  .form-range::-moz-range-track {
+    height: 8px; /* Track height */
+    border-radius: 5px; /* Rounded track */
+  }
+  

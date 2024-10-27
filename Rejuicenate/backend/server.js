@@ -29,6 +29,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve static files from the 'public' directory
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/profileImages', express.static(path.join(__dirname, 'profileUploads')));
 
 // Routes (Access Points for API)
 // ----------------------------------------------
@@ -47,6 +48,9 @@ app.use('/likedJuices', likedJuicesRoutes);
 
 const reviewRoutes = require('./routes/reviewRoutes');
 app.use('/reviews', reviewRoutes)
+
+const personalInfoRoutes = require('./routes/personalInfoRoutes');
+app.use('/personalInfo', personalInfoRoutes)
 
 // -----------------------------------------------
 

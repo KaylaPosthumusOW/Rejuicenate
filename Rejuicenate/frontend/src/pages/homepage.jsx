@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import NavBar from "../components/navbar";
 import "../styles/homepage.css";
 import { useUser } from '../context/UserContext';
 import JuiceCard from "../components/juiceCard";
@@ -29,7 +28,6 @@ function Homepage() {
 
   return (
     <>
-      <NavBar />
 
       <Container className="mt-5">
         <h1>Welcome {user ? user.name : "Guest"}!</h1>

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import '../styles/friends.css'; // Optional: Add your own styles
-import NavBar from "../components/navbar.jsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +24,6 @@ function Friends() {
 
   return (
     <>
-    <NavBar />
     <Container className="mt-5">
         <div className="mt-5 d-flex justify-content-between align-items-center">
             <div>

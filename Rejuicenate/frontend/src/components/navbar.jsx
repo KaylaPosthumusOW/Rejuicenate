@@ -10,7 +10,7 @@ function BasicExample() {
   const { user } = useUser(); // Access the user details from context
 
   const profileImageUrl = user?.profile_image 
-    ? `http://localhost:5001/images/${user.profile_image}` 
+    ? `http://localhost:5001/profileImages/${encodeURIComponent(user.profile_image)}` 
     : 'http://localhost:5001/images/default.png'; // Use default image if none exists
 
   return (
@@ -26,7 +26,7 @@ function BasicExample() {
           <Nav className="me-auto">
             <Nav.Link href="/" className="font-body mx-3">Home</Nav.Link>
             <Nav.Link href="/browseJuices" className="font-body mx-3">Browse Juices</Nav.Link>
-            <Nav.Link href="/reviews" className="font-body mx-3">Reviews</Nav.Link>
+            <Nav.Link href="/trackProgress" className="font-body mx-3">Track Progress</Nav.Link>
             <Nav.Link href="/friends" className="font-body mx-3">Make Friends</Nav.Link>
           </Nav>
           <Nav>
@@ -35,9 +35,9 @@ function BasicExample() {
                 {user ? (
                   <>
                     <img 
-                    src={profileImageUrl} 
-                    alt={`${user.name} ${user.surname}`} 
-                    className="profile-img-nav" 
+                      src={profileImageUrl} 
+                      alt={`${user.name} ${user.surname}`} 
+                      className="profile-img-nav" 
                     />
                     <p className="user-greeting ms-2 mb-0">
                       {user.name} {user.surname}

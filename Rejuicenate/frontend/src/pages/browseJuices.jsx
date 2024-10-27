@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/navbar";
 import '../styles/browseJuices.css';
 import { Container, Pagination } from "react-bootstrap";
 import JuiceCard from "../components/juiceCard";
@@ -64,7 +63,6 @@ function BrowseJuices() {
 
   return (
     <div>
-      <NavBar />
       <Container className="mt-5 mb-3 d-flex justify-content-between align-items-center">
         <div>
           <h1>Sip Your Way to Wellness</h1>
