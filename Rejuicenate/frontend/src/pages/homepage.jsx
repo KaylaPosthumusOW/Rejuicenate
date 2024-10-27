@@ -4,6 +4,7 @@ import "../styles/homepage.css";
 import { useUser } from '../context/UserContext';
 import JuiceCard from "../components/juiceCard";
 import axios from "axios";
+import Footer from "../components/footer";
 
 function Homepage() {
   const { user } = useUser();
@@ -43,6 +44,8 @@ function Homepage() {
         {/* Pass only the first four juices to JuiceCard */}
         <JuiceCard juices={firstFourJuices} />
       </Container>
+
+      <Footer />
     </>
   );
 }

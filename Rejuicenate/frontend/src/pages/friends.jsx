@@ -53,8 +53,8 @@ function Friends() {
         {users.length > 0 ? (
           users.map((user) => {
             const profileImageUrl = user?.profile_image 
-              ? `http://localhost:5001/images/${user.profile_image}` 
-              : 'http://localhost:5001/images/default.png'; // Use default image if none exists
+              ? `http://localhost:5001/profileImages/${user.profile_image}` 
+              : 'http://localhost:5001/images/default.jpg'; // Use default image if none exists
 
             return (
               <Col key={user._id} xs={12} md={3} className="mb-4">

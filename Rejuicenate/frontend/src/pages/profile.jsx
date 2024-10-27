@@ -10,6 +10,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
+import Footer from '../components/footer';
 
 function ProfilePage() {
   const { user, loading, setUser } = useUser();
@@ -20,9 +21,6 @@ function ProfilePage() {
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState(profileImageUrl);
   
-
-
-  // Initialize form methods from react-hook-form
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
@@ -32,29 +30,31 @@ function ProfilePage() {
     }
   
     const fetchLikedJuices = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
-        setLikedJuices(response.data || []);
-      } catch (error) {
-        console.error('Error fetching liked juices:', error);
-        setLikedJuices([]);
+      if (user) { // Ensure user is not null before fetching
+        try {
+          const response = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
+          setLikedJuices(response.data || []);
+        } catch (error) {
+          console.error('Error fetching liked juices:', error);
+          setLikedJuices([]);
+        }
       }
     };
-  
+
+    fetchLikedJuices();
+
     if (user) {
-      fetchLikedJuices();
-  
       // Set values in the form
       setValue('name', user.name);
       setValue('surname', user.surname);
       setValue('email', user.email);
-  
+
       const updatedProfileImageUrl = user.profile_image
         ? `http://localhost:5001/profileImages/${encodeURIComponent(user.profile_image)}`
         : 'http://localhost:5001/images/default.png';
-  
+
       setProfileImageUrl(updatedProfileImageUrl);
-      setProfileImagePreview(updatedProfileImageUrl); // Update this line
+      setProfileImagePreview(updatedProfileImageUrl);
     }
   }, [user, loading, navigate, setValue]);
 
@@ -101,17 +101,26 @@ function ProfilePage() {
     }
   };
 
+  const removeLikedJuice = async (juiceId) => {
+    try {
+      await axios.delete(`http://localhost:5001/likedJuices/${user._id}/${juiceId}`);
+      // Update the state to remove the juice from liked juices
+      setLikedJuices((prevLikedJuices) => prevLikedJuices.filter(juice => juice._id !== juiceId));
+    } catch (error) {
+      console.error('Error removing liked juice:', error);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (!user) return null;
 
   return (
     <div className="colour-bg-profile">
       <Container>
-      <div className="d-flex align-items-center justify-content-between">
-        <img src={profileImageUrl} alt={`${user.name} ${user.surname}`} className="profile-img" />
-        <p className="personal-info">Do you want to personalise your profile? <NavLink className="personalInfo-click" href="/personalInfo">Click Here!</NavLink></p>
-    </div>
-
+        <div className="d-flex align-items-center justify-content-between">
+          <img src={profileImageUrl} alt={`${user.name} ${user.surname}`} className="profile-img" />
+          <p className="personal-info">Do you want to personalise your profile? <NavLink className="personalInfo-click" href="/personalInfo">Click Here!</NavLink></p>
+        </div>
 
         <div className="profile-user-info mt-2">
           <h3>{user.name} {user.surname}</h3>
@@ -123,65 +132,70 @@ function ProfilePage() {
           <PrimaryBtn label="Log Out" onClick={handleLogout} />
         </div>
 
-    <Modal show={showEditForm} onHide={() => setShowEditForm(false)} centered>
-        <Modal.Header closeButton>
+        <Modal show={showEditForm} onHide={() => setShowEditForm(false)} centered>
+          <Modal.Header closeButton>
             <Modal.Title>Edit Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          </Modal.Header>
+          <Modal.Body>
             <div className="text-center">
-            <img
+              <img
                 src={profileImagePreview}
                 alt="Profile Preview"
                 className="profile-image-preview"
-            />
+              />
             </div>
             <form onSubmit={handleSubmit(handleProfileUpdate)}>
-            <div className="file-input-container">
+              <div className="file-input-container">
                 <label htmlFor="file-upload" className="custom-file-upload">
-                Update Profile Image
+                  Update Profile Image
                 </label>
                 <input
-                id="file-upload"
-                className="transparent"
-                type="file"
-                onChange={handleImageChange}
+                  id="file-upload"
+                  className="transparent"
+                  type="file"
+                  onChange={handleImageChange}
                 />
-            </div>
-            <div>
+              </div>
+              <div>
                 <label>Name:</label>
                 <input
-                type="text"
-                {...register('name', { required: true })}
+                  className="input-text"
+                  type="text"
+                  {...register('name', { required: true })}
                 />
-            </div>
-            <div>
+              </div>
+              <div>
                 <label>Surname:</label>
                 <input
-                type="text"
-                {...register('surname', { required: true })}
+                  className="input-text"
+                  type="text"
+                  {...register('surname', { required: true })}
                 />
-            </div>
-            <div>
+              </div>
+              <div>
                 <label>Email:</label>
                 <input
-                type="email"
-                {...register('email', { required: true })}
+                  className="input-text"
+                  type="email"
+                  {...register('email', { required: true })}
                 />
-            </div>
-            <div className="mt-3 d-flex">
+              </div>
+              <div className="mt-3 d-flex">
                 <PrimaryBtn className="align-content-end" label="Update Profile" type="submit" />
-            </div>
+              </div>
             </form>
-        </Modal.Body>
-    </Modal>
-
+          </Modal.Body>
+        </Modal>
 
         <h1 className="mt-5">
           <FontAwesomeIcon icon={faHeart} /> Liked Juices
         </h1>
 
-        <JuiceCard juices={likedJuices} />
+        {/* Ensure likedJuices is an array */}
+        <JuiceCard juices={likedJuices} onRemoveJuice={removeLikedJuice} />
       </Container>
+
+      <Footer />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import AdminNav from "../components/adminComponents/adminNav";
+import AdminNav from "../adminComponents/adminNav";
 import NavBar from "../components/navbar";
 
 function UserPage() {

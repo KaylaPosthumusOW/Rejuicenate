@@ -7,9 +7,9 @@ router.get("/", async (req, res) => {
         const reviews = await Review.find();
         res.json(reviews);
     } catch (err) {
-        res.status(500).json({ message: err.message})
+        res.status(500).json({ message: err.message });
     }
-})
+});
 
 // POST: Add a new review
 router.post('/add', async (req, res) => {
@@ -65,6 +65,7 @@ router.put("/:id/flag", async (req, res) => {
     }
 });
 
+// Get flagged reviews
 router.get('/flagged', async (req, res) => {
     console.log("Fetching flagged reviews...");
     try {
@@ -76,7 +77,6 @@ router.get('/flagged', async (req, res) => {
         res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
 });
- 
 
 // Unflag (approve) a flagged review (Update isFlagged to false)
 router.put("/:id/unflag", async (req, res) => {

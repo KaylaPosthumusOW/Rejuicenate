@@ -52,7 +52,7 @@
 }
 
 .userInfo-bg{
-  width: 80%;
+  width: 70%;
   height: 70px;
   background-color: #2b2b2b;
   position: absolute; /* Make it absolute to position it relative to .review-bg */

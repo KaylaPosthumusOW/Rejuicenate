@@ -1,0 +1,57 @@
+.progress-tracker {
+    width: 300px;
+    height: 300px;
+    border: 4px solid #4D4B4C;
+    border-radius: 150px;
+    margin: 0 auto;
+    position: relative; /* Ensure it participates in the z-index stacking context */
+    z-index: 2; /* Higher than tracking-yellow-bg */
+    background-color: #FEF9F3;
+}
+
+.tracking-text {
+    margin: 140px 0;
+    text-align: center;
+}
+
+.tracking-card-bg {
+    border: 2px solid #F1A208;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.spacer-line {
+    width: 100%;
+    height: 1px;
+    background-color: #F1A208;
+}
+
+.tracking-yellow-bg {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #F7C76B;
+    height: 250px;
+    width: 28%;
+    position: absolute;
+    right: 0;
+    margin-top: -50px;
+    z-index: 1;
+}
+
+.rotated-header {
+    transform: rotate(-90deg); /* Rotate the header */
+    margin-left: -400px;
+    
+  }
+  
+  .text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the header and paragraph */
+    justify-content: center; /* Center vertically */
+  }
+  
+  .gm-text{
+    width: 70%;
+    margin-top: -100px;
+  }

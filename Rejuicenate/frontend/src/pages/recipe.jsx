@@ -14,6 +14,7 @@ import PrimaryBtn from "../Buttons/primaryBtn";
 import SecondaryBtn from "../Buttons/secondaryBtn";
 import ReviewCard from "../components/review";
 import AddReview from "../components/addReview";
+import Footer from "../components/footer";
 
 function JuiceRecipe() {
    const { juiceId } = useParams(); 
@@ -185,6 +186,8 @@ function JuiceRecipe() {
                ))}
             </Row>
          </Container>
+
+      <Footer />
       </div>
    );
 }

@@ -1,0 +1,5 @@
+/* Change border color on focus */
+.search:focus {
+    border-color: #94BFA7; /* Change border color to primary on focus */
+    outline: none !important; /* Remove default outline */
+}

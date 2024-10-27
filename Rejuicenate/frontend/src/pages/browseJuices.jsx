@@ -5,6 +5,7 @@ import JuiceCard from "../components/juiceCard";
 import Filter from "../components/offcanvasFilter";
 import axios from "axios";
 import SecondaryBtn from "../Buttons/secondaryBtn";
+import Footer from "../components/footer";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -87,6 +88,8 @@ function BrowseJuices() {
           </Pagination.Item>
         ))}
       </Pagination>
+
+      <Footer />
     </div>
   );
 }

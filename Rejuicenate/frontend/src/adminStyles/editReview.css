@@ -1,0 +1,50 @@
+.button-container {
+    display: flex; 
+    justify-content: flex-end; 
+    margin-top: 15px; 
+}
+
+.icon-button-check {
+    display: flex; /* Center the icon */
+    justify-content: center; /* Center the icon */
+    align-items: center; /* Center the icon */
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make it round */
+    background-color: #4C956C; /* Button background color */
+    color: white; /* Icon color */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left: 10px; /* Space between buttons */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Optional: Hover effect */
+.icon-button-check:hover {
+    background-color: #397051; /* Darker shade on hover */
+}
+
+.icon-button-trash {
+    display: flex; /* Center the icon */
+    justify-content: center; /* Center the icon */
+    align-items: center; /* Center the icon */
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make it round */
+    background-color: #dc2222; /* Button background color */
+    color: white; /* Icon color */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left: 10px; /* Space between buttons */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Optional: Hover effect */
+.icon-button-trash:hover {
+    background-color: rgb(188, 26, 26); /* Darker shade on hover */
+}
+
+
+.commentText2{
+    margin-bottom: 40px;
+}

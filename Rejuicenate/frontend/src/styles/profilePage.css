@@ -51,8 +51,7 @@ form div {
     margin-bottom: 1rem; /* Space between fields */
   }
   
-  input[type="text"],
-  input[type="email"] {
+.input-text {
     width: 100%; /* Full-width inputs */
     padding: 0.5rem; /* Add some padding */
     border: 1.5px solid #4C956C; /* Default border */
@@ -76,7 +75,7 @@ form div {
   }
 
   .file-input-container {
-    margin-left: 125px;
+    margin-left: 129px;
     margin-top: -30px;
   }
   

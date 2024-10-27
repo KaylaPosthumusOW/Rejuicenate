@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AdminNav from "../components/adminComponents/adminNav";
+import AdminNav from "../adminComponents/adminNav";
 import NavBar from "../components/navbar";
 import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
-import ReviewCard from "../components/review"; // Assuming you have a ReviewCard component for displaying each review
+import EditReviewCard from "../adminComponents/editReview";
 
 function ReviewPage() {
     const [flaggedReviews, setFlaggedReviews] = useState([]);
@@ -13,7 +13,7 @@ function ReviewPage() {
         const fetchFlaggedReviews = async () => {
             try {
                 const response = await axios.get("http://localhost:5001/reviews");
-                const flagged = response.data.filter(review => review.isFlagged); // Filter for flagged reviews
+                const flagged = response.data.filter(review => review.isFlagged);
                 setFlaggedReviews(flagged);
             } catch (error) {
                 console.error("Error fetching flagged reviews:", error);
@@ -22,8 +22,8 @@ function ReviewPage() {
 
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/users"); // Fetch users
-                setUsers(response.data); // Store user data
+                const response = await axios.get("http://localhost:5001/users");
+                setUsers(response.data);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
@@ -33,16 +33,25 @@ function ReviewPage() {
         fetchUsers();
     }, []);
 
-    // Define the handleFlag function to manage flagging reviews
-    const handleFlag = async (reviewId) => {
+    // Handle unflagging a review
+    const handleUnflag = async (reviewId) => {
         try {
-            await axios.put(`http://localhost:5001/reviews/${reviewId}/flag`);
-            // Refetch flagged reviews
+            await axios.put(`http://localhost:5001/reviews/${reviewId}/unflag`, { isFlagged: false });
             const response = await axios.get("http://localhost:5001/reviews");
             const flagged = response.data.filter(review => review.isFlagged);
             setFlaggedReviews(flagged);
         } catch (error) {
-            console.error("Error flagging review:", error);
+            console.error("Error unflagging review:", error);
+        }
+    };
+
+    // Handle deleting a review
+    const handleDelete = async (reviewId) => {
+        try {
+            await axios.delete(`http://localhost:5001/reviews/${reviewId}`);
+            setFlaggedReviews(prevReviews => prevReviews.filter(review => review._id !== reviewId));
+        } catch (error) {
+            console.error("Error deleting review:", error);
         }
     };
 
@@ -57,18 +66,18 @@ function ReviewPage() {
                 ) : (
                     <Row className="mt-4">
                         {flaggedReviews.map((review) => {
-                            // Find the user that matches the review's userId
                             const user = users.find(user => user._id === review.userId);
                             return (
-                                <Col md={4} key={review._id}>
-                                    <ReviewCard
+                                <Col md={6} key={review._id}>
+                                    <EditReviewCard
                                         commentText={review.commentText}
                                         personalTip={review.personalTip}
-                                        userProfileImage={user ? user.profile_image : null} // Use user profile image
-                                        userName={user ? `${user.name} ${user.surname}` : "Unknown User"} // Use user's name
+                                        userProfileImage={user ? user.profile_image : null}
+                                        userName={user ? `${user.name} ${user.surname}` : "Unknown User"}
                                         rating={review.rating}
-                                        isFlagged={review.isFlagged} // Pass the flagged status
-                                        onFlag={() => handleFlag(review._id)} // Handle flagging with review ID
+                                        isFlagged={review.isFlagged}
+                                        onUnflag={() => handleUnflag(review._id)} // Unflagging handler
+                                        onDelete={() => handleDelete(review._id)} // Deleting handler
                                     />
                                 </Col>
                             );

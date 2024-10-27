@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'; // Import NavLink from react-router-dom
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import "../../styles/adminStyles/adminNav.css"; // Import styles
+import "../adminStyles/adminNav.css"; // Import styles
 
 function AdminNav() {
   return (

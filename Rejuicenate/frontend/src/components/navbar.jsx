@@ -18,7 +18,7 @@ function BasicExample() {
       <Container>
         <Navbar.Brand href="/">
           <div className="flex content-center">
-            <img className="logo" src={Logo} alt="Logo" />
+            <img className="logo" src={Logo} alt="Rejuicenate-Logo" />
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
