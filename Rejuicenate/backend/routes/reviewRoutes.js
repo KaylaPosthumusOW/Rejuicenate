@@ -110,4 +110,20 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+// DELETE: Delete all reviews by juiceId
+router.delete('/deleteByJuiceId/:juiceId', async (req, res) => {
+    const { juiceId } = req.params;
+    try {
+        const result = await Review.deleteMany({ juiceId });
+        if (result.deletedCount > 0) {
+            res.json({ message: 'All reviews for this juice were deleted' });
+        } else {
+            res.status(404).json({ message: 'No reviews found for this juice' });
+        }
+    } catch (error) {
+        console.error('Error deleting reviews by juiceId:', error);
+        res.status(500).json({ message: 'Error deleting reviews by juiceId' });
+    }
+});
+
 module.exports = router;

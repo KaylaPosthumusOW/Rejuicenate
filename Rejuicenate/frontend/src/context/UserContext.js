@@ -20,6 +20,15 @@ export const UserProvider = ({ children }) => {
     setLoading(false); // Loading complete
   }, []);
 
+  // Update localStorage whenever the user state changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user'); // Remove user from localStorage if logged out
+    }
+  }, [user]);
+
   return (
     <UserContext.Provider value={{ user, setUser, loading }}>
       {children}

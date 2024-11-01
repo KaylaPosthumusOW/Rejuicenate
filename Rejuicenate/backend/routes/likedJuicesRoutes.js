@@ -1,10 +1,25 @@
-// routes/likedJuices.js
 const express = require('express');
 const router = express.Router();
 const LikedJuice = require('../models/LikedJuice');
+const mongoose = require('mongoose'); // Import mongoose
+const { ObjectId } = mongoose.Types; // Import ObjectId from mongoose.Types
 
+// GET /likedJuices - Get all liked juices for all users
+router.get('/', async (req, res) => {
+  try {
+    const likedJuices = await LikedJuice.find().populate('juiceId');
+    const juices = likedJuices.map(like => ({
+      userId: like.userId,
+      juice: like.juiceId // Returns the populated juice details
+    }));
+    res.status(200).json(juices);
+  } catch (error) {
+    console.error('Error fetching all liked juices:', error);
+    res.status(500).json({ message: 'Error fetching liked juices.' });
+  }
+});
 // POST route to add a liked juice
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
   const { userId, juiceId } = req.body;
 
   try {
@@ -37,20 +52,29 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
-// DELETE route to unlike a juice
-router.delete('/:userId/:juiceId', async (req, res) => {
-  try {
-    const result = await LikedJuice.findOneAndDelete({ userId: req.params.userId, juiceId: req.params.juiceId });
-    
-    if (!result) {
-      return res.status(404).json({ message: 'Liked juice not found.' });
-    }
+// DELETE route to delete a liked juice by its ID
+// Assuming you have required the necessary modules and set up your router
+router.delete('/deleteLikedJuiceByJuiceId/:juiceId', async (req, res) => {
+  const { juiceId } = req.params;
 
-    res.status(204).send(); // No Content
+  try {
+    const objectId = ObjectId(juiceId);
+
+    // Find and delete all liked juices that match the juiceId
+    const deletedJuices = await LikedJuice.deleteMany({ juiceId: objectId });
+
+    if (deletedJuices.deletedCount > 0) {
+      return res.status(200).send({ message: 'Liked juices deleted successfully', deletedCount: deletedJuices.deletedCount });
+    } else {
+      return res.status(404).send({ message: 'No liked juices found for this juiceId' });
+    }
   } catch (error) {
-    console.error('Error unliking juice:', error);
-    res.status(500).json({ message: 'Error unliking juice.' });
+    console.error('Error deleting liked juices:', error);
+    return res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
+
+
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'; // Import NavLink from react-router-dom
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import "../adminStyles/adminNav.css"; // Import styles
+import "../../styles/adminStyles/adminNav.css"; // Import styles
 
 function AdminNav() {
   return (
@@ -26,6 +26,13 @@ function AdminNav() {
           className={({ isActive }) => isActive ? 'active-link' : 'nav-link'}
         >
           <p>Flagged Reviews</p>
+        </NavLink>
+
+        <NavLink 
+          to="/admin/users" 
+          className={({ isActive }) => isActive ? 'active-link' : 'nav-link'}
+        >
+          <p>Users</p>
         </NavLink>
       </Nav>
     </Navbar>

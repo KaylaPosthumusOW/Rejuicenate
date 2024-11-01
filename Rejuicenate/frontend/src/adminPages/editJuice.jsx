@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import AdminNav from "../adminComponents/adminNav";
-import NavBar from "../components/navbar";
-import "../adminStyles/editJuice.css";
 import axios from "axios";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import JuiceModal from "../adminComponents/juiceModal"; // Import your modal component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import EditJuiceCards from "../adminComponents/editJuiceCards"; // Use the correct relative path
+import EditJuiceCards from "../adminComponents/editJuiceCards";
+import "../adminStyles/editJuices.css"
 
 const ITEMS_PER_PAGE = 12;
 
@@ -74,25 +72,21 @@ function EditJuices() {
     
 
     return (
-        <>
-            <NavBar />
-            <AdminNav />
+        <div className="editJuice-container">
             <Container className="mt-5 mb-3 justify-content-between align-content-center">
                 <h2>Edit or Delete Juices</h2>
                 <Row>
                     <Col xs="auto">
-                        <Form.Control
+                        <div className="search-container">
+                            <Form.Control
                             type="text"
                             placeholder="Search"
-                            className="search mr-sm-1"
-                            value={searchQuery} // Bind the input value to the searchQuery state
-                            onChange={handleSearchChange} // Handle changes to the search input
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Button type="submit" className="search-btn">
-                            <FontAwesomeIcon icon={faSearch} />
-                        </Button>
+                            className="search-input"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            />
+                            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                        </div>
                     </Col>
                 </Row>
             </Container>
@@ -106,7 +100,7 @@ function EditJuices() {
                 juice={selectedJuice}
                 // Pass other props to handle update/delete actions
             />
-        </>
+        </div>
     );
 }
 

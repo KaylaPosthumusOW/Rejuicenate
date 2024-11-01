@@ -12,19 +12,21 @@ import AddJuice from "./pages/addJuice";
 import AddCategory from "./pages/addCategory";
 import JuiceRecipe from "./pages/recipe";
 import ProfilePage from "./pages/profile";
-import Friends from "./pages/friends";
 import ReviewPage from "./adminPages/reviewPage";
 import UserPage from "./adminPages/userAdmin";
 import EditJuices from "./adminPages/editJuice";
 import AdminAddJuice from "./adminPages/addJuice";
 import { UserProvider } from "./context/UserContext";
 import TrackProgress from "./pages/trackProgress";
+import PrivateRoute from "./components/privateRoute";
+import AdminNav from "./adminComponents/adminNav";
 
 function App() {
   return (
     <UserProvider>
       <Router>
         <BasicExample /> {/* Navbar remains fixed at the top */}
+        <AdminNavContainer /> {/* Conditionally renders AdminNav */}
         <div className="content-container">
           <AnimatedRoutes /> {/* Route transitions will occur here */}
         </div>
@@ -38,7 +40,7 @@ function AnimatedRoutes() {
 
   return (
     <AnimatePresence mode="wait">
-      <div> {/* Ensure padding aligns with navbar height */}
+      <div>
         <Routes location={location} key={location.key}>
           <Route path="/" element={<PageTransition><Homepage /></PageTransition>} />
           <Route path="/browseJuices" element={<PageTransition><BrowseJuices /></PageTransition>} />
@@ -49,14 +51,41 @@ function AnimatedRoutes() {
           <Route path="/signUp" element={<PageTransition><SignUp /></PageTransition>} />
           <Route path="/juiceRecipe/:juiceId" element={<JuiceTransition><JuiceRecipe /></JuiceTransition>} />
           <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
-          <Route path="/friends" element={<PageTransition><Friends /></PageTransition>} />
           <Route path="/trackProgress" element={<PageTransition><TrackProgress /></PageTransition>} />
 
-
-          <Route path="/admin/addJuice" element={<PageTransition><AdminAddJuice /></PageTransition>} />
-          <Route path="/admin/reviews" element={<PageTransition><ReviewPage /></PageTransition>} />
-          <Route path="/admin/users" element={<PageTransition><UserPage /></PageTransition>} />
-          <Route path="/admin/editJuices" element={<PageTransition><EditJuices /></PageTransition>} />
+          {/* Admin Routes Protected by PrivateRoute */}
+          <Route 
+            path="/admin/addJuice" 
+            element={
+              <PrivateRoute adminOnly={true}>
+                <PageTransition><AdminAddJuice /></PageTransition>
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/admin/reviews" 
+            element={
+              <PrivateRoute adminOnly={true}>
+                <PageTransition><ReviewPage /></PageTransition>
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/admin/users" 
+            element={
+              <PrivateRoute adminOnly={true}>
+                <PageTransition><UserPage /></PageTransition>
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/admin/editJuices" 
+            element={
+              <PrivateRoute adminOnly={true}>
+                <PageTransition><EditJuices /></PageTransition>
+              </PrivateRoute>
+            } 
+          />
         </Routes>
       </div>
     </AnimatePresence>
@@ -90,6 +119,14 @@ function PageTransition({ children }) {
       {children}
     </motion.div>
   );
+}
+
+// Conditional AdminNav container
+function AdminNavContainer() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return isAdminRoute ? <AdminNav /> : null; // Only show on admin pages
 }
 
 export default App;

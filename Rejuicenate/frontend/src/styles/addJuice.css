@@ -1,5 +1,5 @@
 .form{
-    background-color: #C65B7C;
+    background-color: #4C956C;
     width: 100%;
     padding: 50px;
     padding-left: 120px;
@@ -9,15 +9,14 @@
 }
 
 .addButton{
-    background-color: transparent;
-    color: rgb(240, 240, 240);
-    border: none;
+    background-color: #FEF9F3;
+    border: 2px solid #397051;
 }
 
 .addButton:hover{
-    background-color: transparent;
-    color: white;
-    border: none;
+    background-color: #e6e3df;
+    border: 2px solid #397051;
+    color: #397051;
 }
 
 .line{

@@ -3,33 +3,37 @@ import { useNavigate } from "react-router-dom";
 import { Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/navbar";
 import PinkPattern from '../assets/pink pattern.png';
 import PrimaryBtn from "../Buttons/primaryBtn";
 import '../styles/SignUpIn.css';
-import { useUser } from '../context/UserContext'; // Import useUser
+import { useUser } from '../context/UserContext';
 
 function LogIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useUser(); // Access the setUser function from context
-  const navigate = useNavigate(); // Use navigate for redirection
+  const { setUser } = useUser();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('http://localhost:5001/users/login', {
         email,
         password,
       });
-
-      const { token, user } = response.data; // Assuming response contains user data
-      localStorage.setItem('token', token); // Store JWT token in localStorage
-      localStorage.setItem('user', JSON.stringify(user)); // Store user details
-
-      setUser(user); // Save user in context
-      navigate('/'); // Redirect to homepage
+  
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+  
+      setUser(user);
+  
+      if (user.user_type === 'admin') {
+        navigate('/admin/addJuice');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       console.error('Login error:', error);
       alert('Invalid credentials.');
@@ -38,7 +42,6 @@ function LogIn() {
 
   return (
     <div>
-      <NavBar />
       <div className="container-fluid">
         <div className="row">
           <div className="col-4">

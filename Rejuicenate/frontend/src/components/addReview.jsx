@@ -35,9 +35,9 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
       onAddReview(response.data);
 
       // Clear the form fields
-      setRating(0); // Reset the rating
-      setCommentText(''); // Clear comment text
-      setPersonalTip(''); // Clear personal tip
+      setRating(0); 
+      setCommentText('');
+      setPersonalTip(''); 
 
     } catch (error) {
       console.error('Error adding review:', error);

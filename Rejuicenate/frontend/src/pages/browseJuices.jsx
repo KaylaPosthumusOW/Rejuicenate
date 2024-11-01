@@ -67,14 +67,18 @@ function BrowseJuices() {
       <Container className="mt-5 mb-3 d-flex justify-content-between align-items-center">
         <div>
           <h1>Sip Your Way to Wellness</h1>
-          <p>Explore our refreshing collection of juices...</p>
+          <p>Explore our refreshing collection of juices, crafted to fuel your day and nourish your body. <br />Find your favorites, save the ones you love, and start sipping towards a healthier you!</p>
         </div>
-        <div className="align-self-end filters">
-          <Filter className="me-2" onFilterChange={handleFilterChange} />
-          <SecondaryBtn className="clear-btn ms-2" label="Clear All" onClick={handleClearFilters} /> {/* Add margin-left */}
+        <div className="d-flex align-items-center filters"> {/* Added d-flex for horizontal alignment */}
+          <div className="me-3">
+            <Filter className="me-2" onFilterChange={handleFilterChange} />
+          </div>
+          <div>          
+            <SecondaryBtn className="clear-btn ms-2" label="Clear All" onClick={handleClearFilters} />
+          </div>
         </div>
-
       </Container>
+
       <JuiceCard juices={currentJuices} />
       {/* Pagination Controls */}
       <Pagination className="justify-content-center mt-4">

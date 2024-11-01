@@ -1,13 +1,10 @@
   .adminNav {
-    margin-top: 78px;
     height: 60px; 
     display: flex;
     justify-content: center; 
     align-items: center; 
     background-color: #201E1F;
     padding: 0 40px;
-    position: fixed;
-    /* position: fixed; */
   }
   
   .adminNav p {
@@ -16,7 +13,6 @@
     color: #FEF9F3;
     cursor: pointer;
     transition: color 0.3s;
-    padding: 8px;
   }
   
   .adminNav p:hover {
@@ -25,24 +21,11 @@
   
   .active-link p {
     color: #4C956C !important;
-    font-weight: 700 !important; 
+    font-weight: 700; 
     padding: 8px;
   }
 
   .active-link{
     text-decoration: none;
   }
-
-  /* adminNav.css */
-
-.nav {
-  position: fixed;
-}
-
-.adminNav {
-  
-  text-align: center;
-}
-
-
   

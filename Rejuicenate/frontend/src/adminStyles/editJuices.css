@@ -1,0 +1,29 @@
+.editJuice-container{
+    margin-top: 100px;
+}
+
+.search-container {
+    position: relative;
+    width: 220px; /* Adjust as needed */
+  }
+  
+  .search-input {
+    width: 100%;
+    padding-right: 30px; /* Space for the icon */
+    border-radius: 20px; /* Rounded corners */
+    border: 2px solid #201E1F;
+  }
+  
+  .search-input::placeholder {
+    color: #888;
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px; /* Position icon inside input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #474747;
+    pointer-events: none; /* Prevent icon from blocking input clicks */
+  }
+  

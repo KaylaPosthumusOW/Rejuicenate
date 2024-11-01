@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import axios from "axios";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import '../styles/addJuice.css';
 import PrimaryBtn from "../Buttons/primaryBtn";
 
@@ -62,9 +62,8 @@ function AddJuiceComponent() {
   };
 
   return (
-    <div>
-      <Container className="form my-5">
-        <h2>Add Your Juice Recipe</h2>
+    <div className="form">
+        <h2>Add the New Juice Recipe</h2>
         <p>Contribute to our collection of delicious and nutritious juice recipes by filling out the form below.</p>
         
               
@@ -74,7 +73,7 @@ function AddJuiceComponent() {
             <Form.Label>Juice Name</Form.Label>
             <Form.Control
               type="text"
-              style={{ border: '2px solid #95445D' }}
+              style={{ border: '2px solid #397051' }}
               value={juiceName}
               onChange={(e) => setJuiceName(e.target.value)}
               placeholder="Enter a catchy name for your juice"
@@ -89,7 +88,7 @@ function AddJuiceComponent() {
               <div key={index} className="mb-2">
                 <Form.Control
                   type="text"
-                  style={{ border: '2px solid #95445D' }}
+                  style={{ border: '2px solid #397051' }}
                   value={ingredient}
                   onChange={(e) => {
                     const newIngredients = [...ingredients];
@@ -102,7 +101,7 @@ function AddJuiceComponent() {
               </div>
             ))}
             <Button variant="outline-secondary" className="addButton" onClick={() => addNewField(setIngredients, ingredients)}>
-            <small>+ Add Instruction</small> 
+            <small>+ Add Ingredient</small> 
             </Button>
           </Form.Group>
 
@@ -114,7 +113,7 @@ function AddJuiceComponent() {
                 <Form.Control
                   type="text"
                   value={instruction}
-                  style={{ border: '2px solid #95445D' }}
+                  style={{ border: '2px solid #397051' }}
                   onChange={(e) => {
                     const newInstructions = [...instructions];
                     newInstructions[index] = e.target.value;
@@ -136,7 +135,7 @@ function AddJuiceComponent() {
             <Form.Control
               as="select"
               value={selectedCategory}
-              style={{ border: '2px solid #95445D' }}
+              style={{ border: '2px solid #397051' }}
               onChange={(e) => setSelectedCategory(e.target.value)}
               required
             >
@@ -152,14 +151,13 @@ function AddJuiceComponent() {
           {/* Image Upload */}
           <Form.Group className="mb-3">
             <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} style={{ border: '2px solid #95445D' }} />
+            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} style={{ border: '2px solid #397051' }} />
           </Form.Group>
 
           {/* Submit Button */}
           <PrimaryBtn variant="primary" label="Submit" type="submit" disabled={loading}>
           </PrimaryBtn>
         </Form>
-      </Container>
     </div>
   );
 }

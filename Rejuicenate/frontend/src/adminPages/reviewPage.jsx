@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import AdminNav from "../adminComponents/adminNav";
-import NavBar from "../components/navbar";
 import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
 import EditReviewCard from "../adminComponents/editReview";
@@ -57,9 +55,7 @@ function ReviewPage() {
 
     return (
         <>
-            <NavBar />
-            <AdminNav />
-            <Container>
+            <Container className="editReview-Container">
                 <h2 className="mt-5">Flagged Reviews</h2>
                 {flaggedReviews.length === 0 ? (
                     <p>No flagged reviews available.</p>

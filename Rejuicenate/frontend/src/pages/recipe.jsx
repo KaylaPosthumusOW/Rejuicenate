@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'; 
 import { faHeart as faRegHeart } from '@fortawesome/free-regular-svg-icons'; 
 import { faCarrot, faBookOpen, faArrowLeft } from '@fortawesome/free-solid-svg-icons'; 
+import { faHeartCircleXmark } from '@fortawesome/free-solid-svg-icons';
+
 import PrimaryBtn from "../Buttons/primaryBtn";
 import SecondaryBtn from "../Buttons/secondaryBtn";
 import ReviewCard from "../components/review";
@@ -21,11 +23,13 @@ function JuiceRecipe() {
    const [juice, setJuice] = useState(null); 
    const [reviews, setReviews] = useState([]); 
    const [isLiked, setIsLiked] = useState(false); 
+   const [likedJuiceId, setLikedJuiceId] = useState(null);
+
    const { user } = useUser(); 
 
    useEffect(() => {
-      const fetchJuice = async () => {
-         try {
+    const fetchJuice = async () => {
+        try {
             const juiceResponse = await axios.get(`http://localhost:5001/juices/${juiceId}`);
             setJuice(juiceResponse.data);
 
@@ -33,18 +37,27 @@ function JuiceRecipe() {
             setReviews(reviewsResponse.data); 
 
             if (user) {
-               const likedResponse = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
-               const likedJuices = likedResponse.data;
-               const likedJuiceIds = likedJuices.map(like => like._id);
-               setIsLiked(likedJuiceIds.includes(juiceId));
-            }
-         } catch (error) {
-            console.error('Error fetching juice or reviews:', error);
-         }
-      };
+                const likedResponse = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
+                const likedJuices = likedResponse.data;
+                const likedJuiceIds = likedJuices.map(like => like._id); // Assuming likedJuices contains juiceId
+                setIsLiked(likedJuiceIds.includes(juiceId));
 
-      fetchJuice();
-   }, [juiceId, user]);
+                // Set the likedJuiceId for deletion
+                const likedJuice = likedJuices.find(like => like._id === juiceId);
+                if (likedJuice) {
+                    setLikedJuiceId(likedJuice._id); // Use the liked juice ID here
+                } else {
+                    setLikedJuiceId(null); // Reset if not found
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching juice or reviews:', error);
+        }
+    };
+
+    fetchJuice();
+}, [juiceId, user]);
+
 
    const addReview = (newReview) => {
       const updatedReview = {
@@ -84,7 +97,7 @@ function JuiceRecipe() {
 
    const handleLike = async (juiceId) => {
       try {
-         const response = await axios.post('http://localhost:5001/likedJuices', {
+         const response = await axios.post('http://localhost:5001/likedJuices/add', {
             userId: user._id, 
             juiceId: juiceId,
          });
@@ -94,6 +107,23 @@ function JuiceRecipe() {
          console.error('Error liking juice:', error);
       }
    };
+    
+
+   const handleDeleteLike = async () => {
+      try {
+        // Send the juiceId to the new delete route
+        const response = await axios.delete(`http://localhost:5001/likedJuices/deleteLikedJuiceByJuiceId/${juiceId}`);
+        console.log(response.data);
+        
+        // Update the state to reflect the change
+        setIsLiked(false);
+        setLikedJuiceId(null); // Reset the likedJuiceId
+      } catch (error) {
+        console.error('Error deleting liked juice:', error);
+      }
+    };
+    
+  
 
    if (!juice) return <p>Loading...</p>;
 
@@ -123,7 +153,17 @@ function JuiceRecipe() {
                         >
                            <FontAwesomeIcon icon={isLiked ? faHeart : faRegHeart} className="heart-icon" style={{ color: isLiked ? 'red' : 'black' }} />
                         </div>
+                        {/* Conditional rendering of the delete button */}
+                        {isLiked && (
+                           <FontAwesomeIcon
+                              icon={faHeartCircleXmark}
+                              style={{ cursor: 'pointer', fontSize: '24px', marginLeft: '10px', color: 'red' }}
+                              onClick={handleDeleteLike} // Call handleDeleteLike without arguments
+                           />
+                           )}
+
                      </div>
+
                   </div>
 
                   <Row>

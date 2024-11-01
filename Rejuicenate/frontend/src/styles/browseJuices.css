@@ -38,7 +38,17 @@
 
 .filters{
   padding-bottom: 40px;
+  display: flex; /* Ensure children are aligned in a row */
+  gap: 10px;
 }
+.filters {
+   /* Optional: adds a gap between the filter and button */
+}
+
+.clear-btn {
+  /* Additional styles for the clear button can go here */
+}
+
 
 .browse-link{
   color: #4C956C;

@@ -37,7 +37,7 @@ const Footer = () => {
 
             {/* Copyright Section */}
             <div className="footer-bottom">
-                <p><small>&copy; 2024 CodeStars. All rights reserved.</small></p>
+                <p><small>&copy; 2024 Rejuicenate. All rights reserved.</small></p>
             </div>
         </footer>
     );

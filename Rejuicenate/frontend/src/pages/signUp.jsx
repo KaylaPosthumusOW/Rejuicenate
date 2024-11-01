@@ -1,4 +1,3 @@
-import NavBar from "../components/navbar";
 import GreenPattern from '../assets/green pattern.png';
 
 import '../styles/SignUpIn.css';
@@ -43,7 +42,6 @@ function SignUp() {
 
   return (
     <div>
-      <NavBar />
       <div className="container-fluid">
         <div className="row">
           <div className="col-4">

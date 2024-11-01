@@ -1,3 +1,7 @@
+.editReview-Container{
+    margin-top: 100px;
+}
+
 .button-container {
     display: flex; 
     justify-content: flex-end; 

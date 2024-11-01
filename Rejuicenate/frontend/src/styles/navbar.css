@@ -20,3 +20,21 @@
     height: 45px;
     border-radius: 50%;
 }
+
+/* Navbar Links */
+.nav-link {
+    color: #495057; /* Default link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.2s ease-in-out; /* Smooth color transition */
+  }
+  
+  .nav-link:hover {
+    color: #4C956C; /* Change color on hover */
+  }
+  
+  /* Active Link Styles */
+  .active-link {
+    color: #201E1F; /* Color for active links */
+    font-weight: bold; /* Make active links bold */
+    padding: 8px;
+  }
