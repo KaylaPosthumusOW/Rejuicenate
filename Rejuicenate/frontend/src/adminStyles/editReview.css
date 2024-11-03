@@ -1,7 +1,3 @@
-.editReview-Container{
-    margin-top: 100px;
-}
-
 .button-container {
     display: flex; 
     justify-content: flex-end; 
@@ -51,4 +47,15 @@
 
 .commentText2{
     margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .button-container{
+        flex-direction: column;
+        align-items: flex-end;
+        margin-bottom: 0;
+    }
+    .icon-button-check{
+        margin-bottom: 10px;
+    }
 }

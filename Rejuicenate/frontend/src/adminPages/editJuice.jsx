@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import JuiceModal from "../adminComponents/juiceModal"; // Import your modal component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import EditJuiceCards from "../adminComponents/editJuiceCards";
+
+import Footer from "../components/footer";
+
 import "../adminStyles/editJuices.css"
 
 const ITEMS_PER_PAGE = 12;
@@ -67,39 +70,49 @@ function EditJuices() {
     };
     
     const handleJuiceDeleted = (deletedJuiceId) => {
-        setJuices((prevJuices) => prevJuices.filter((juice) => juice._id !== deletedJuiceId));
+        // Update state or perform actions needed after juice deletion
+        console.log("Juice deleted with ID:", deletedJuiceId);
+        // Example: Remove the deleted juice from a list
+        setJuices(prevJuices => prevJuices.filter(juice => juice._id !== deletedJuiceId));
     };
+    
     
 
     return (
-        <div className="editJuice-container">
-            <Container className="mt-5 mb-3 justify-content-between align-content-center">
-                <h2>Edit or Delete Juices</h2>
-                <Row>
-                    <Col xs="auto">
-                        <div className="search-container">
-                            <Form.Control
+        <div>
+            <Container className="mt-5 mb-3">
+            <Row className="align-items-center">
+                <Col xs={12} md={6}>
+                    <h2>Edit or Delete Juices</h2>
+                </Col>
+                <Col xs={12} md={6} className="d-flex justify-content-md-end mt-2 mt-md-0">
+                    <div className="search-container d-flex align-items-center">
+                        <Form.Control
                             type="text"
                             placeholder="Search"
-                            className="search-input"
+                            className="search-input me-2" // Add margin end for spacing
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            />
-                            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                        />
+                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                    </div>
+                </Col>
+            </Row>
+        </Container>
             {/* Juice Cards */}
             <EditJuiceCards juices={currentJuices} onJuiceClick={handleJuiceClick} />
 
             {/* Modal for editing juice */}
             <JuiceModal
                 show={showModal}
-                onClose={handleCloseModal}
+                handleClose={handleCloseModal}
                 juice={selectedJuice}
-                // Pass other props to handle update/delete actions
+                onJuiceUpdated={handleJuiceUpdated}
+                onJuiceDeleted={handleJuiceDeleted} // Pass the deletion handler
             />
+
+
+<Footer />
         </div>
     );
 }

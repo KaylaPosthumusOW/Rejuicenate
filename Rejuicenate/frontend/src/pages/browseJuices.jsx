@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useUser } from "../context/UserContext"; // Import the user context
 import '../styles/browseJuices.css';
 import { Container, Pagination } from "react-bootstrap";
 import JuiceCard from "../components/juiceCard";
@@ -10,6 +11,7 @@ import Footer from "../components/footer";
 const ITEMS_PER_PAGE = 12;
 
 function BrowseJuices() {
+  const { user } = useUser(); // Access the user details from context
   const [juices, setJuices] = useState([]);
   const [filteredJuices, setFilteredJuices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,12 +66,14 @@ function BrowseJuices() {
 
   return (
     <div>
-      <Container className="mt-5 mb-3 d-flex justify-content-between align-items-center">
-        <div>
-          <h1>Sip Your Way to Wellness</h1>
+      {/* Conditionally render AdminNav if user is admin */}
+      
+      <Container className="mt-5 mb-3 d-flex flex-column flex-sm-row justify-content-between align-items-start">
+        <div className="mb-3 mb-sm-0">
+          <h1>Sip Your Way to Wellness</h1> 
           <p>Explore our refreshing collection of juices, crafted to fuel your day and nourish your body. <br />Find your favorites, save the ones you love, and start sipping towards a healthier you!</p>
         </div>
-        <div className="d-flex align-items-center filters"> {/* Added d-flex for horizontal alignment */}
+        <div className="d-flex align-items-center filters"> 
           <div className="me-3">
             <Filter className="me-2" onFilterChange={handleFilterChange} />
           </div>
@@ -78,6 +82,7 @@ function BrowseJuices() {
           </div>
         </div>
       </Container>
+
 
       <JuiceCard juices={currentJuices} />
       {/* Pagination Controls */}

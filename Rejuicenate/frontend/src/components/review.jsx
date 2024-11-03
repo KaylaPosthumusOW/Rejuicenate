@@ -44,7 +44,7 @@ function ReviewCard({ commentText, personalTip, userProfileImage, userName, rati
       </p>
       <div className="userInfo-bg align-content-center">
         <img src={profileImageUrl} alt="User" className="user-img" />
-        <p className="mt-3"><strong>{userName}</strong></p>
+        <p><strong>{userName}</strong></p>
       </div>
     </div>
   );

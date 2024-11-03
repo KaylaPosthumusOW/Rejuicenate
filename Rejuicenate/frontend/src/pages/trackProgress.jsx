@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"; 
+// TrackProgress.js
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "../styles/trackProgress.css";
 import axios from 'axios';
@@ -6,7 +7,8 @@ import { useUser } from '../context/UserContext';
 import Footer from "../components/footer";
 import TrackingModal from "../components/trackingModal";
 import TrackedDataCard from "../components/trackedData";
-import CongratsModal from "../components/congratsModal"; // Import the CongratsModal
+import CongratsModal from "../components/congratsModal";
+import PrimaryBtn from "../Buttons/primaryBtn";
 
 function TrackProgress() {
   const { user } = useUser(); 
@@ -15,7 +17,7 @@ function TrackProgress() {
   const [error, setError] = useState(null);
   const [trackingCards, setTrackingCards] = useState([]); 
   const [showModal, setShowModal] = useState(false); 
-  const [showCongrats, setShowCongrats] = useState(false); // State for the congrats modal
+  const [showCongrats, setShowCongrats] = useState(false);
 
   const filledHeight = (trackingCards.length / (personalData?.fastDuration || 1)) * 100;
 
@@ -25,15 +27,21 @@ function TrackProgress() {
         try {
           const response = await axios.get(`http://localhost:5001/personalInfo/${user._id}`);
           setPersonalData(response.data);
-    
+
           const trackingResponse = await axios.get(`http://localhost:5001/trackedData/${user._id}`);
-          const trackingDataWithJuices = trackingResponse.data.map((data) => {
-            const juiceName = data.juiceId.juiceName || "Unknown Juice"; 
-            return {
-              ...data,
-              juiceName: juiceName,
-            };
-          });
+          const trackingData = trackingResponse.data;
+
+          // Fetch juice names for each entry
+          const trackingDataWithJuices = await Promise.all(
+            trackingData.map(async (data) => {
+              const juiceName = await getJuiceName(data.juiceId); 
+              return {
+                ...data,
+                juiceName: juiceName || "Unknown Juice",
+              };
+            })
+          );
+
           setTrackingCards(trackingDataWithJuices);
         } catch (err) {
           setError('Error fetching data.');
@@ -43,25 +51,24 @@ function TrackProgress() {
         }
       }
     };    
-  
+
     fetchPersonalData();
   }, [user]);
-  
+
   const getJuiceName = async (juiceId) => {
-    if (!juiceId) return null; 
+    if (!juiceId) return null;
     try {
       const response = await axios.get(`http://localhost:5001/juices/${juiceId}`);
       return response.data.juiceName;
     } catch (error) {
       console.error(`Error fetching juice with ID ${juiceId}:`, error);
-      return null; 
+      return null;
     }
   };
 
   useEffect(() => {
-    // Check if the user has completed their fast duration
     if (personalData && trackingCards.length === personalData.fastDuration) {
-      setShowCongrats(true); // Show the congrats modal
+      setShowCongrats(true);
     }
   }, [trackingCards.length, personalData]);
 
@@ -70,10 +77,10 @@ function TrackProgress() {
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const handleCloseCongrats = () => setShowCongrats(false); // Function to close the congrats modal
+  const handleCloseCongrats = () => setShowCongrats(false);
 
   const addTrackedData = async (newData) => {
-    const juiceName = await getJuiceName(newData.juiceId); 
+    const juiceName = await getJuiceName(newData.juiceId);
     const newCard = {
       ...newData,
       juiceName: juiceName || "Unknown Juice",
@@ -86,22 +93,32 @@ function TrackProgress() {
     <>
       <div className="tracking-yellow-bg"></div>
       <Container>
-        <h2 className="mt-5">Track Your Journey, One Sip at a Time</h2>
+          <h2 className="trackh1 mt-5">Track Your Journey</h2>
+          <p>Monitor your daily progress to see how far you’ve come! <span className="trackMobileText">Stay motivated by logging your progress and <br />celebrating every milestone on your journey to a healthier you</span></p>
+          {trackingCards.length < personalData?.fastDuration && (
+              <PrimaryBtn 
+                  label={`+ Add Day ${trackingCards.length + 1} data`} 
+                  onClick={handleShowModal} 
+                  style={{ cursor: 'pointer', color: 'blue' }}
+              />
+          )}
         <Row>
-          <Col lg="4" className="text-center">
-            <h3 className="rotated-header">User Goals</h3>
+          <Col lg="7" className="mt-5 goalsAndMotivations">
+          <div className="goals">
+            <h3 className="rotated-header">Your <span className="goal-span">GOALS</span></h3>
             <p className="gm-text">{personalData?.healthGoals || "No health goals set."}</p>
-          </Col>
-          <Col lg="4" className="text-center mt-5">
-            <h3 className="rotated-header">User Motivations</h3>
+          </div> 
+          <div className="goalsMotivationline"/>
+          <div className="motivations">
+            <h3 className="rotated-header mt-5">Your <span className="goal-span">MOTIVATIONS</span></h3>
             <p className="gm-text">{personalData?.motivation || "No motivations set."}</p>
+          </div>
           </Col>
-          
-          <Col lg="4" className="progress-tracker">
+          <Col lg="5" className="progress-tracker">
             <div className="progress-circle">
               <div className="progress-fill"
                 style={{
-                  height: `${(trackingCards.length / (personalData?.fastDuration || 1)) * 100}%`, 
+                  height: `${filledHeight}%`, 
                   transition: 'height 0.5s ease',
                 }}
               ></div>
@@ -117,14 +134,12 @@ function TrackProgress() {
           <p>
             Keep an eye on how far you've come. Track what works, log how you feel, and celebrate small wins on your journey toward wellness!
           </p>
-          {/* Conditionally render the Add Data button */}
-          {trackingCards.length < personalData?.fastDuration && (
-            <div onClick={handleShowModal} style={{ cursor: 'pointer', color: 'blue' }}>
-              +Add Data
-            </div>
-          )}
+          <div className="mb-3">
+          
+
+          </div>
           {trackingCards.map((card, index) => (
-            <Col lg="4" sm="6" key={index}>
+            <Col lg="4"key={index}>
               <TrackedDataCard 
                 day={card.day}
                 dayDescription={card.dayDescription}
@@ -138,7 +153,7 @@ function TrackProgress() {
       </Container>
 
       <TrackingModal show={showModal} handleClose={handleCloseModal} addTrackedData={addTrackedData} />
-      <CongratsModal show={showCongrats} handleClose={handleCloseCongrats} /> {/* Add CongratsModal here */}
+      <CongratsModal show={showCongrats} handleClose={handleCloseCongrats} />
       <Footer />
     </>
   );

@@ -109,7 +109,6 @@ router.post('/add', async (req, res) => {
 // POST /users/login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log("Received login attempt:", { email, password });
 
   try {
     const user = await User.findOne({ email });

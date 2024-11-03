@@ -5,7 +5,7 @@ import Logo from '../assets/Logo-Rejuicenate.svg';
 import { useUser } from '../context/UserContext'; // Import the user context
 import { NavLink } from 'react-router-dom'; // Import NavLink from react-router-dom
 
-import DefaultImage from "../assets/default.jpg"
+import DefaultImage from "../assets/default.jpg";
 import '../styles/navbar.css';
 
 function BasicExample() {
@@ -13,9 +13,7 @@ function BasicExample() {
 
   const profileImageUrl = user?.profile_image 
     ? `http://localhost:5001/profileImages/${encodeURIComponent(user.profile_image)}` 
-    : 'http://localhost:5001/images/default.png'; // Use default image if none exists
-
-  const defaultImageUrl = 'http://localhost:5001/images/default.png';
+    : DefaultImage; // Use default image if none exists
 
   return (
     <Navbar expand="lg" className="nav">
@@ -30,12 +28,32 @@ function BasicExample() {
           <Nav className="me-auto">
             {/* Conditionally render links based on user type */}
             {user?.user_type === 'admin' ? (
-              <NavLink 
-                to="/browseJuices" 
-                className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
-              >
-                Browse Juices
-              </NavLink>
+              <>
+                <NavLink 
+                  to="/browseJuices" 
+                  className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
+                >
+                  Browse Juices
+                </NavLink>
+                <NavLink 
+                  to="/admin/addJuice" 
+                  className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
+                >
+                  Add Juice
+                </NavLink>
+                <NavLink 
+                  to="/admin/editJuices" 
+                  className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
+                >
+                  Edit Juices
+                </NavLink>
+                <NavLink 
+                  to="/admin/reviews" 
+                  className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
+                >
+                  Flagged Reviews
+                </NavLink>
+              </>
             ) : (
               <>
                 <NavLink 
@@ -80,7 +98,7 @@ function BasicExample() {
                       alt="guest-image" 
                       className="profile-img-nav" 
                     />
-                    <p className="user-greeting ms-3 mb-0">Sign In</p>
+                    <p className="user-greeting ms-3 mb-0">Log In</p>
                   </>
                 )}
               </div>

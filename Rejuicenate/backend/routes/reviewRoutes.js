@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../models/Review'); // Mongoose model for reviews
+const Review = require('../models/Review'); // Adjust the path as necessary
+
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
 
 router.get("/", async (req, res) => {
     try {
@@ -111,19 +114,26 @@ router.delete("/:id", async (req, res) => {
 });
 
 // DELETE: Delete all reviews by juiceId
-router.delete('/deleteByJuiceId/:juiceId', async (req, res) => {
+router.delete('/likedJuices/:juiceId', async (req, res) => {
     const { juiceId } = req.params;
     try {
-        const result = await Review.deleteMany({ juiceId });
-        if (result.deletedCount > 0) {
-            res.json({ message: 'All reviews for this juice were deleted' });
-        } else {
-            res.status(404).json({ message: 'No reviews found for this juice' });
-        }
+        // This is where the Review model should be used
+        await Review.deleteMany({ juiceId: juiceId });
+        res.status(200).send({ message: 'Reviews deleted successfully.' });
     } catch (error) {
-        console.error('Error deleting reviews by juiceId:', error);
-        res.status(500).json({ message: 'Error deleting reviews by juiceId' });
+        res.status(500).send({ error: 'Error deleting reviews by juiceId: ' + error.message });
     }
 });
+
+router.delete('/juice/:juiceId', async (req, res) => {
+    try {
+        const juiceId = req.params.juiceId;
+        await Review.deleteMany({ "juiceId.$oid": juiceId });
+        res.status(200).json({ message: 'Associated reviews deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete reviews' });
+    }
+});
+
 
 module.exports = router;

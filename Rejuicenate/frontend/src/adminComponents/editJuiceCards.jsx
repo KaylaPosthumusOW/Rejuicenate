@@ -9,7 +9,7 @@ function EditJuiceCards({ juices, onJuiceClick }) {
       <Row className="g-3">
         {juices.length > 0 ? (
           juices.map((juice) => (
-            <Col key={juice._id} xs={12} sm={6} md={3} lg={3}>
+            <Col key={juice._id} xs={6} sm={6} md={3} lg={3}>
               <div 
                 onClick={() => onJuiceClick(juice)} // Handle the click to open the modal
                 style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
@@ -22,7 +22,7 @@ function EditJuiceCards({ juices, onJuiceClick }) {
                   />
                   <div className="card-content">
                     <h2 className="mb-3">{juice.juiceName}</h2>
-                    <PrimaryBtn label="Recipe" />
+                    <PrimaryBtn label="Edit/Delete" />
                   </div>
                 </div>
               </div>

@@ -8,7 +8,7 @@ const trackedDataSchema = new mongoose.Schema({
   dayDescription: { type: String, required: true },
   modifications: { type: String },
   feelings: { type: String },
-  juiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Juice', required: true },
+  juiceName: { type: String, required: true }, // Change juiceId to juiceName
   createdAt: { type: Date, default: Date.now },
 });
 

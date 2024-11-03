@@ -38,3 +38,13 @@
     font-weight: bold; /* Make active links bold */
     padding: 8px;
   }
+
+  @media (max-width: 768px) {
+    /* Stack the columns for smaller screens */
+    .user-info {
+      margin-left: 10px;
+    }
+    .modal-footer{
+      padding: 0 !important;
+    }
+  }

@@ -9,7 +9,7 @@ function JuiceCard({ juices }) {
       <Row className="g-3">
         {juices.length > 0 ? (
           juices.map((juice) => (
-            <Col key={juice._id} xs={12} sm={6} md={3} lg={3}>
+            <Col key={juice._id} xs={6} sm={6} md={3} lg={3}>
               <Link to={`/juiceRecipe/${juice._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="card overlay">
                   <img

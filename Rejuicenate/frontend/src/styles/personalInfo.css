@@ -1,5 +1,6 @@
 /* General Styles */
 .background {
+  width: 100%;
     background-color: #4C956C;
     padding: 40px 120px;
     border-radius: 20px;
@@ -115,4 +116,82 @@
     height: 8px; /* Track height */
     border-radius: 5px; /* Rounded track */
   }
+
+  .personal-container{
+    padding: 0 20px;
+  }
+
+  .headerPersonal{
+    padding: 0;
+  }
   
+  /* Radio Button */
+  /* Custom styles for radio buttons */
+input[type="radio"]:checked {
+  background-color: #B57A06; 
+  border-color: #FEF9F3 !important; /* Remove default outline */
+  box-shadow: 0 0 0 2px #F1A208;  /* For modern browsers (Chrome, Firefox) */
+}
+
+/* Styles for the range input */
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default appearance in Chrome/Safari */
+  width: 100%; /* Full width */
+  background: #ddd; /* Track background color */
+  height: 8px; /* Track height */
+  border-radius: 5px; /* Round edges of the track */
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px; /* Track height */
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px; /* Track height */
+}
+
+.slider-formControl{
+  border-radius: 10px !important;
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default appearance */
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Round edges of the thumb */
+  background: #95445D; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+  margin-top: -6px; /* Center the thumb on the track */
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Round edges of the thumb */
+  background: #95445D; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+}
+
+input[type="range"]::-ms-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Round edges of the thumb */
+  background: #95445D; /* Thumb color */
+  cursor: pointer; /* Cursor style */
+}
+
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .background{
+      padding: 30px 20px;
+    }
+    .background-yellow{
+      padding: 30px 20px;
+    }
+    .background-pink{
+      padding: 30px 20px;
+    }
+  }

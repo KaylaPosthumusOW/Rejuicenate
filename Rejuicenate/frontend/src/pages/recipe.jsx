@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; 
-import NavBar from "../components/navbar";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import '../styles/recipe.css';
 import axios from "axios";
 import Nav from 'react-bootstrap/Nav';
@@ -9,11 +8,7 @@ import { useUser } from '../context/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'; 
 import { faHeart as faRegHeart } from '@fortawesome/free-regular-svg-icons'; 
-import { faCarrot, faBookOpen, faArrowLeft } from '@fortawesome/free-solid-svg-icons'; 
-import { faHeartCircleXmark } from '@fortawesome/free-solid-svg-icons';
-
-import PrimaryBtn from "../Buttons/primaryBtn";
-import SecondaryBtn from "../Buttons/secondaryBtn";
+import { faCarrot, faBookOpen, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import ReviewCard from "../components/review";
 import AddReview from "../components/addReview";
 import Footer from "../components/footer";
@@ -129,49 +124,42 @@ function JuiceRecipe() {
 
    return (
       <div>
-         <NavBar />
          <Container className="mt-2">
             <Nav.Link href="/browseJuices" className="back-button">
-               <PrimaryBtn
-                  label={
-                     <>
-                        <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> Back
-                     </>
-                  }
-               />
+               <Button className="backBtn">                        
+                  <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> Back
+               </Button>
             </Nav.Link>
             
-            <Row>
-               <Col md={8}>
-                  <div className="align-content-center mt-5 mb-3">
-                     <h1>{juice.juiceName}</h1>
-                     <div className="button-container">
-                        <SecondaryBtn label={juice.category_id ? juice.category_id.category : 'No Category'} />
-                        <div
-                           onClick={() => handleLike(juiceId)}
-                           style={{ cursor: 'pointer', fontSize: '24px' }}
-                        >
-                           <FontAwesomeIcon icon={isLiked ? faHeart : faRegHeart} className="heart-icon" style={{ color: isLiked ? 'red' : 'black' }} />
-                        </div>
-                        {/* Conditional rendering of the delete button */}
-                        {isLiked && (
-                           <FontAwesomeIcon
-                              icon={faHeartCircleXmark}
-                              style={{ cursor: 'pointer', fontSize: '24px', marginLeft: '10px', color: 'red' }}
-                              onClick={handleDeleteLike} // Call handleDeleteLike without arguments
-                           />
-                           )}
-
-                     </div>
-
+            <Row className="g-5">
+               <Col md={8} className="recipe-content">
+               <div className="align-content-center mt-5 mb-3 d-flex justify-content-between align-items-start">
+               <div>
+                  <h1>{juice.juiceName}</h1>
+                  <p>Crafted to support your journey toward better health, this juice is designed to help with <span className="categoryName">{juice.category_id ? juice.category_id.category : 'No Category'}</span>, providing natural nourishment and a boost where you need it most.</p>
+               </div>
+               
+               <div className="mb-5 d-flex align-items-center">
+                  {/* Conditional rendering for the like button */}
+                  <div
+                     onClick={() => isLiked ? handleDeleteLike() : handleLike(juiceId)} // Toggle between liking and deleting the like
+                     style={{ cursor: 'pointer', fontSize: '24px' }}
+                  >
+                     <FontAwesomeIcon 
+                     icon={isLiked ? faHeart : faRegHeart} 
+                     className="heart-icon" 
+                     style={{ color: isLiked ? 'red' : 'black' }} 
+                     />
                   </div>
+               </div>
+               </div>
 
                   <Row>
                      <Col md="1">
                         <div className="h-line"></div>
                      </Col>
                      <Col md="11" className="category-text">
-                        <h4>Dietary Modification:</h4>
+                        <h4 className="green-text">Dietary Modification:</h4>
                         <p>{juice.category_id ? juice.category_id.dietaryMods : 'No dietary modification information available.'}</p>
                      </Col>
                   </Row>
@@ -202,15 +190,11 @@ function JuiceRecipe() {
                </Col>
             </Row>
 
-            <h2 className="mt-3">Share Your Experience</h2>
-            <p>
-               Tried this juice? Let the community know how it tasted, how it made you feel, 
-               and whether it helped you on your wellness journey. Your feedback helps others discover their favorites!
-            </p>
+            {/* Add Review Form */}
             <AddReview juiceId={juiceId} userId={user._id} onAddReview={addReview} />
 
-            <h2 className="mt-5">Reviews</h2>
-            <Row className="mt-4">
+            <h2 className="mt-5">Other users Reviews</h2>
+            <Row className="mt-3">
                {reviews.map((review, index) => (
                   <Col md={4} key={review._id}>
                      <ReviewCard

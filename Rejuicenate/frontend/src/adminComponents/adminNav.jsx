@@ -6,7 +6,7 @@ import "../adminStyles/adminNav.css"; // Import styles
 function AdminNav() {
   return (
     <Navbar expand="lg" className="adminNav">
-      <Nav className="mx-auto">
+      <Nav className="navLinks mx-auto">
         <NavLink 
           to="/admin/addJuice" 
           className={({ isActive }) => isActive ? 'active-link' : 'nav-link'}

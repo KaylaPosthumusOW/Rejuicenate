@@ -37,18 +37,10 @@
 }
 
 .filters{
-  padding-bottom: 40px;
-  display: flex; /* Ensure children are aligned in a row */
+  padding-bottom: 20px;
+  display: flex;
   gap: 10px;
 }
-.filters {
-   /* Optional: adds a gap between the filter and button */
-}
-
-.clear-btn {
-  /* Additional styles for the clear button can go here */
-}
-
 
 .browse-link{
   color: #4C956C;
@@ -56,7 +48,7 @@
 
 /* Review */
 .review-bg{
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
   border: 2px solid #2b2b2b;
 }
@@ -68,14 +60,18 @@
   position: absolute; /* Make it absolute to position it relative to .review-bg */
   left: 0; /* Align to the left */
   bottom: 0; 
-  border-bottom-left-radius: 7px;
+  border-bottom-left-radius: 15px;
   border-top-right-radius: 30px;
   border-top: 2px solid #2b2b2b;
   border-right: 2px solid #2b2b2b;
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Center items vertically */
 }
 
 .userInfo-bg p{
   color: white;
+  margin-top: 15px;
+  margin-left: 15px;
 }
 
 .commentText{
@@ -84,6 +80,24 @@
 
 .comment-icon{
   color: #2b2b2b;
+}
+
+.backBtn{
+  background-color: #201E1F;
+  border: 2px solid #201E1F;
+}
+
+.backBtn:hover{
+  background-color: transparent;
+  border: 2px solid #201E1F;
+  color:#201E1F;
+}
+
+.backBtn:active {
+  background-color: #201E1F !important;
+  border: 2px solid #201E1F !important;
+  color:#FEF9F3;
+  transform: scale(0.99) !important;
 }
 
 .user-img{
@@ -129,3 +143,61 @@
   background-color: #FEF9F3;
     border: 1.5px solid #4C956C;
 }
+
+/* pagination */
+.active .page-link {
+  background-color: #4C956C; 
+  color: white;
+  border: 1px solid #4C956C;
+  cursor: pointer; 
+}
+
+.page-link{
+  background-color: #FEF9F3; 
+  color: #4C956C;
+  border: 1px solid #4C956C;
+  cursor: pointer; 
+}
+
+.page-link:hover {
+  background-color: #DBEAE2; /* Change background on hover */
+  color:#2b2b2b;
+  border: 1px solid #4C956C;
+}
+
+
+
+/* Responsiveness */
+@media (max-width: 576px) {
+  .card-content h2 {
+    font-size: 1.5rem; /* Adjust font size for smaller screens */
+    margin-bottom: 1rem; /* Adjust margin */
+  }
+  .card-content{
+    padding-top: 100px;
+  }
+
+  /* .backBtn{
+    background-color: transparent !important;
+  } */
+}
+
+@media (min-width: 576px) {
+  .card-content h2 {
+    font-size: 1.75rem; /* Adjust font size for small to medium screens */
+    margin-bottom: 1.5rem; /* Adjust margin */
+  }
+}
+
+@media (min-width: 768px) {
+  .card-content h2 {
+    font-size: 2rem; /* Adjust font size for medium screens and up */
+  }
+}
+
+@media (min-width: 992px) {
+  .card-content h2 {
+    font-size: 2.5rem; /* Larger font size for larger screens */
+  }
+}
+

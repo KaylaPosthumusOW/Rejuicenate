@@ -47,10 +47,16 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <div className="addReviewForm">
+    <h2>Share Your Experience</h2>
+            <p>
+               Tried this juice? Let the community know how it tasted, how it made you feel, 
+               and whether it helped you on your wellness journey. Your feedback helps others discover their favorites!
+            </p>
+    <Form  onSubmit={handleSubmit}>
       {/* Rating Field */}
       <Form.Group className="mb-3">
-        <Form.Label>Rating</Form.Label>
+        <Form.Label><strong>Rating</strong></Form.Label>
         <div className="star-rating">
           {[1, 2, 3, 4, 5].map((star) => (
             <FontAwesomeIcon
@@ -68,7 +74,7 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
 
       {/* Comment Textarea */}
       <Form.Group className="mb-3">
-        <Form.Label>Comment</Form.Label>
+        <Form.Label><strong>Comment</strong></Form.Label>
         <Form.Control
           as="textarea"
           rows={2}
@@ -82,7 +88,7 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
 
       {/* Personal Tip (Optional) */}
       <Form.Group className="mb-3">
-        <Form.Label>Personal Tip (Optional)</Form.Label>
+        <Form.Label><strong>Personal Tip (Optional)</strong></Form.Label>
         <Form.Control
           type="text"
           value={personalTip}
@@ -97,6 +103,7 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
         {loading ? 'Submitting...' : 'Submit Review'}
       </PrimaryBtn>
     </Form>
+    </div>
   );
 };
 

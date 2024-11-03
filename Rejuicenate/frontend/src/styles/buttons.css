@@ -11,6 +11,13 @@
     color:#201E1F;
 }
 
+.primaryBtn:active {
+    background-color: #333333 !important; 
+    color: #FEF9F3 !important;
+    transform: scale(0.99) !important;
+    border: 2px solid #201E1F !important;
+}
+
 .secondaryBtn{
     background-color: #FEF9F3;
     padding-left: 40px;
@@ -24,4 +31,11 @@
     background-color: #201E1F;
     border: 2px solid #201E1F;
     color:#FEF9F3;
+}
+
+.secondaryBtn:active {
+    background-color: #FEF9F3 !important;
+    border: 2px solid #201E1F !important;
+    color:#201E1F !important;
+    transform: scale(0.99) !important;
 }

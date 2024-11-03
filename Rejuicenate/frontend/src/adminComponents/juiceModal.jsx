@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useForm, useFieldArray } from 'react-hook-form';
+import SecondaryBtn from '../Buttons/secondaryBtn';
+import PrimaryBtn from '../Buttons/primaryBtn';
 
 const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }) => {
-    const { register, handleSubmit, setValue, control } = useForm();
+    const { register, handleSubmit, setValue, control, reset } = useForm();
     const { fields: ingredientFields, append: appendIngredient, remove: removeIngredient } = useFieldArray({
         control,
         name: 'ingredients'
@@ -18,24 +20,30 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
     const [previewImage, setPreviewImage] = useState(null);
 
     useEffect(() => {
-        if (juice) {
-            setValue('juiceName', juice.juiceName || '');
-            setValue('category_id', juice.category_id || '');
+        if (show) {
+            setImage(null);
+            setPreviewImage(null);
+            reset();
 
-            const ingredients = JSON.parse(juice.ingredients[0] || '[]');
-            ingredients.forEach(item => appendIngredient({ value: item }));
+            if (juice) {
+                setValue('juiceName', juice.juiceName || '');
+                setValue('category_id', juice.category_id || '');
 
-            const instructions = JSON.parse(juice.instructions[0] || '[]');
-            instructions.forEach(step => appendInstruction({ value: step }));
+                const ingredients = JSON.parse(juice.ingredients[0] || '[]');
+                ingredients.forEach(item => appendIngredient({ value: item }));
 
-            setPreviewImage(`http://localhost:5001/${juice.image}`);
+                const instructions = JSON.parse(juice.instructions[0] || '[]');
+                instructions.forEach(step => appendInstruction({ value: step }));
+
+                setPreviewImage(`http://localhost:5001/${juice.image}`);
+            }
         }
-    }, [juice, setValue, appendIngredient, appendInstruction]);
+    }, [show, juice, setValue, appendIngredient, appendInstruction, reset]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setImage(file);
-        setPreviewImage(URL.createObjectURL(file)); // Preview the selected file
+        setPreviewImage(URL.createObjectURL(file));
     };
 
     const handleUpdate = async (data) => {
@@ -61,91 +69,71 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
     };
 
     const handleDelete = async () => {
-        const juiceId = juice._id.toString(); // Convert to string
-        console.log("Deleting juice with ID:", juiceId);
-    
-        try {
-            // Attempt to delete liked juices
-            const likedResponse = await axios.delete(`http://localhost:5001/likedJuices/deleteByJuiceId/${juiceId}`);
-            if (likedResponse.data.deletedCount > 0) {
-                console.log("Liked juices deleted:", likedResponse.data);
-            } else {
-                console.log("No liked juices to delete for this juice ID.");
-            }
-        } catch (error) {
-            console.error("Error deleting liked juices:", error);
-            return; // Stop if this fails
+        if (!juice || !juice._id) {
+            console.error("Juice ID is undefined");
+            return;
         }
-    
+
         try {
-            // Attempt to delete reviews
-            const reviewsResponse = await axios.delete(`http://localhost:5001/reviews/deleteByJuiceId/${juiceId}`);
-            if (reviewsResponse.data.deletedCount > 0) {
-                console.log("Reviews deleted:", reviewsResponse.data);
-            } else {
-                console.log("No reviews to delete for this juice ID.");
-            }
-        } catch (error) {
-            console.error("Error deleting reviews:", error);
-            alert("Failed to delete reviews. Please check the server.");
-            return; // Stop if this fails
-        }
-    
-        try {
-            // Finally delete the juice
-            const deleteResponse = await axios.delete(`http://localhost:5001/juices/delete/${juiceId}`);
-            console.log("Juice deleted:", deleteResponse.data);
-            onJuiceDeleted(juiceId);
+            await axios.delete(`http://localhost:5001/juices/deleteJuice/${juice._id}`);
+            await axios.delete(`http://localhost:5001/likedjuices/juice/${juice._id}`);
+            await axios.delete(`http://localhost:5001/reviews/juice/${juice._id}`);
+            onJuiceDeleted(juice._id);
             handleClose();
         } catch (error) {
-            console.error("Error deleting juice:", error);
-            alert("Failed to delete juice. Please check the server.");
+            console.error("Error deleting juice and associated data:", error);
+            alert("Failed to delete juice and associated data. Please try again.");
         }
     };
-    
-    
-    
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal className="editJuiceModal" show={show} onHide={handleClose} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Update Juice</Modal.Title>
+                <Modal.Title><h3>Update or Delete Juice</h3></Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit(handleUpdate)}>
-                    <Form.Group controlId="formJuiceImage">
-                        <Form.Label>Image</Form.Label>
-                        {previewImage && <img src={previewImage} alt="Preview" style={{ width: '100%', marginBottom: '10px' }} />}
-                        <Form.Control type="file" accept="image/*" onChange={handleImageChange} />
-                    </Form.Group>
+                    <Row>
+                        <Col lg="6">
+                            <Form.Group controlId="formJuiceImage">
+                                <Form.Label>Juice Image:</Form.Label>
+                                {previewImage && <img className="previewImage" src={previewImage} alt="Preview" style={{ width: '100%', marginBottom: '10px' }} />}
+                                <div className="file-input-container">
+                                    <label htmlFor="file-upload" className="custom-juiceimg-upload">
+                                        Update Profile Image
+                                    </label>
+                                    <input id="file-upload" className="transparent" type="file" onChange={handleImageChange} />
+                                </div>                            </Form.Group>
 
-                    <Form.Group controlId="formJuiceName">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" {...register('juiceName')} placeholder="Enter juice name" />
-                    </Form.Group>
+                            <Form.Group controlId="formJuiceName">
+                                <Form.Label>Juice Name:</Form.Label>
+                                <Form.Control type="text" {...register('juiceName')} placeholder="Enter juice name" />
+                            </Form.Group>
+                        </Col>
+                        <Col lg="6">
+                            <Form.Label>Ingredients:</Form.Label>
+                            {ingredientFields.map((item, index) => (
+                                <div key={item.id} className="d-flex mb-2">
+                                    <Form.Control type="text" {...register(`ingredients.${index}.value`)} placeholder={`Ingredient ${index + 1}`} />
+                                    <Button className="removeIngredient-Instruction" onClick={() => removeIngredient(index)}>-</Button>
+                                </div>
+                            ))}
+                            <Button className="addIngredient-Instruction" onClick={() => appendIngredient({ value: '' })}>+ Add Ingredient</Button>
+<br />
+                            <Form.Label className="mt-3">Instructions:</Form.Label>
+                            {instructionFields.map((item, index) => (
+                                <div key={item.id} className="d-flex mb-2">
+                                    <Form.Control type="text" {...register(`instructions.${index}.value`)} placeholder={`Step ${index + 1}`} />
+                                    <Button className="removeIngredient-Instruction" onClick={() => removeInstruction(index)}>-</Button>
+                                </div>
+                            ))}
+                            <Button className="addIngredient-Instruction" onClick={() => appendInstruction({ value: '' })}>+ Add Step</Button>
+                        </Col>
+                    </Row>
 
-                    <Form.Label>Ingredients</Form.Label>
-                    {ingredientFields.map((item, index) => (
-                        <div key={item.id} className="d-flex mb-2">
-                            <Form.Control type="text" {...register(`ingredients.${index}.value`)} placeholder={`Ingredient ${index + 1}`} />
-                            <Button variant="danger" onClick={() => removeIngredient(index)}>-</Button>
-                        </div>
-                    ))}
-                    <Button variant="success" onClick={() => appendIngredient({ value: '' })}>+ Add Ingredient</Button>
-
-                    <Form.Label>Instructions</Form.Label>
-                    {instructionFields.map((item, index) => (
-                        <div key={item.id} className="d-flex mb-2">
-                            <Form.Control type="text" {...register(`instructions.${index}.value`)} placeholder={`Step ${index + 1}`} />
-                            <Button variant="danger" onClick={() => removeInstruction(index)}>-</Button>
-                        </div>
-                    ))}
-                    <Button variant="success" onClick={() => appendInstruction({ value: '' })}>+ Add Step</Button>
-
-                    <div className="d-flex justify-content-between mt-4">
-                        <Button variant="secondary" onClick={handleClose}>Close</Button>
-                        <Button variant="danger" onClick={handleDelete}>Delete Juice</Button>
-                        <Button variant="primary" type="submit">Update Juice</Button>
+                    <div className="d-flex justify-content-end mt-4">
+                        <SecondaryBtn variant="danger" onClick={handleDelete} label="Delete Juice"/>
+                        <PrimaryBtn variant="primary" type="submit" label="Update Juice"/>
                     </div>
                 </Form>
             </Modal.Body>

@@ -2,41 +2,72 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: Arial, sans-serif;
 }
 
-img {
+.signUp-img {
     display: block;
-    width: 100%;  
-    height: 92vh;  
-    object-fit: cover; 
-    margin-left: -20px;
+    width: 100%;
+    height: 92vh;
+    object-fit: cover;
+    right: 0;
 }
 
-.signUpform{
-    width: 30%;
-    margin-top: 4%;
+.container-fluid {
+    padding: 0;
 }
 
-.form2{
+.signUpform {
+    width: 100%;
+    max-width: 600px; /* Limits width on larger screens */
+    margin: 3% auto;
+    padding: 20px;
+}
+
+.logInform{
+    width: 100%;
+    max-width: 600px; /* Limits width on larger screens */
+    margin: 5% auto;
+    padding: 20px;
+}
+
+.formInput {
+    background-color: #FEF9F3;
+    border: 1.5px solid #4C956C;
+    border-radius: 5px;
+}
+
+.link {
+    color: #C65B7C;
+}
+
+.form2 {
     width: 30%;
     margin-top: 9%;
 }
 
-.link{
-    color: #C65B7C;
-}
-
-.link2{
+.link2 {
     color: #4C956C;
 }
 
-
-.formInput{
-    background-color: #FEF9F3;
-    border: 1.5px solid #4C956C;
-}
-
-.formInput2{
+.formInput2 {
     background-color: #FEF9F3;
     border: 1.5px solid #C65B7C;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .signUp-img {
+        display: none;
+    }
+    .signUpform {
+        width: 90%;
+        margin-top: 50px !important;
+        padding: 15px;
+    }
+    .logInform {
+        width: 90%;
+        margin-top: 50px !important;
+        padding: 15px;
+    }
 }

@@ -1,7 +1,3 @@
-.editJuice-container{
-    margin-top: 100px;
-}
-
 .search-container {
     position: relative;
     width: 220px; /* Adjust as needed */
@@ -20,10 +16,73 @@
   
   .search-icon {
     position: absolute;
-    right: 10px; /* Position icon inside input */
+    right: 20px; /* Position icon inside input */
     top: 50%;
     transform: translateY(-50%);
     color: #474747;
     pointer-events: none; /* Prevent icon from blocking input clicks */
+  }
+
+
+/* Modal */
+.previewImage{
+  border-radius: 20px;
+}
+
+.removeIngredient-Instruction{
+  background-color: #C65B7C;
+  border: 1px solid #C65B7C;
+  margin-left: 5px;
+}
+
+.removeIngredient-Instruction:hover{
+  background-color: transparent;
+  border: 1px solid #C65B7C;
+  margin-left: 5px;
+  color:#201E1F;
+}
+
+.custom-juiceimg-upload {
+  display: inline-block;
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer;
+  background-color: #201E1F; /* Button color */
+  color: white; /* Text color */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition */
+  margin-left: -39px;
+  border: 2px solid #201E1F;
+}
+
+.custom-juiceimg-upload:hover {
+  background-color: #FEF9F3;
+  border: 2px solid #201E1F;
+  color:#201E1F;
+}
+
+/* Optional: Additional styles for the label */
+.custom-juiceimg-upload:active {
+  transform: scale(0.95); /* Scale effect on click */
+}
+
+.addIngredient-Instruction{
+  background-color: transparent;
+  color: #535353;
+  border: none;
+}
+
+.addIngredient-Instruction:hover{
+  background-color: transparent;
+  color: #201E1F;
+  border: none;
+}
+
+
+
+  /* responsiveness */
+  @media (max-width: 768px) {
+    .modal-content{
+      padding: 5px !important;
+    }
   }
   

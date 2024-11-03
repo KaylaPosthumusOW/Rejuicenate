@@ -28,4 +28,27 @@
     transition: width 1s ease;
   }
   
+  /* About us */
+  .aboutUs-bg{
+    /* width: 100%; */
+    height: 100px;
+    background-color: #4C956C;
+    margin-bottom: -50px;
+    margin-left: 40px;
+  }
+
+  .aboutus-img{
+    width: auto;
+    height: 300px;
+    margin-left: 10px;
+  }
+
+  .ourMission-green{
+    color:#4C956C;
+  }
   
+  @media (max-width: 576px) {
+    .ourMission-green{
+        margin-top: -30px !important;
+    }
+  }

@@ -30,7 +30,7 @@ function ProfilePage() {
     }
   
     const fetchLikedJuices = async () => {
-      if (user) { // Ensure user is not null before fetching
+      if (user) {
         try {
           const response = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
           setLikedJuices(response.data || []);
@@ -44,7 +44,6 @@ function ProfilePage() {
     fetchLikedJuices();
 
     if (user) {
-      // Set values in the form
       setValue('name', user.name);
       setValue('surname', user.surname);
       setValue('email', user.email);
@@ -83,7 +82,7 @@ function ProfilePage() {
       localStorage.setItem('user', JSON.stringify(response.data));
       const updatedProfileImageUrl = response.data.profile_image
         ? `http://localhost:5001/profileImages/${encodeURIComponent(response.data.profile_image)}`
-        : 'http://localhost:5001/images/default.png';
+        : 'http://localhost:5001/images/default.jpg';
 
       setProfileImageUrl(updatedProfileImageUrl);
       setShowEditForm(false);
@@ -104,7 +103,6 @@ function ProfilePage() {
   const removeLikedJuice = async (juiceId) => {
     try {
       await axios.delete(`http://localhost:5001/likedJuices/${user._id}/${juiceId}`);
-      // Update the state to remove the juice from liked juices
       setLikedJuices((prevLikedJuices) => prevLikedJuices.filter(juice => juice._id !== juiceId));
     } catch (error) {
       console.error('Error removing liked juice:', error);
@@ -115,88 +113,72 @@ function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="colour-bg-profile">
-      <Container>
-        <div className="d-flex align-items-center justify-content-between">
-          <img src={profileImageUrl} alt={`${user.name} ${user.surname}`} className="profile-img" />
-          <p className="personal-info">Do you want to personalise your profile? <NavLink className="personalInfo-click" href="/personalInfo">Click Here!</NavLink></p>
-        </div>
+    <>
+      <div className="colour-bg-profile">
+        <Container>
+          <div className="center-img">
+            <img src={profileImageUrl} alt={`${user.name} ${user.surname}`} className="profile-img" />
+          </div>
 
-        <div className="profile-user-info mt-2">
-          <h3>{user.name} {user.surname}</h3>
-          <p><strong><FontAwesomeIcon icon={faEnvelope} /></strong> {user.email}</p>
-        </div>
+          <div className="profile-user-info mt-2">
+            <h3>{user.name} {user.surname}</h3>
+            <p><strong><FontAwesomeIcon icon={faEnvelope} /></strong> {user.email}</p>
+          </div>
 
-        <div className="mt-4">
-          <SecondaryBtn label="Edit Profile" onClick={handleEditProfile} />
-          <PrimaryBtn label="Log Out" onClick={handleLogout} />
-        </div>
+          <div className="profile-btns mt-4">
+            <SecondaryBtn label="Edit Profile" onClick={handleEditProfile} />
+            <PrimaryBtn label="Log Out" onClick={handleLogout} />
+          </div>
 
-        <Modal show={showEditForm} onHide={() => setShowEditForm(false)} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Profile</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="text-center">
-              <img
-                src={profileImagePreview}
-                alt="Profile Preview"
-                className="profile-image-preview"
-              />
-            </div>
-            <form onSubmit={handleSubmit(handleProfileUpdate)}>
-              <div className="file-input-container">
-                <label htmlFor="file-upload" className="custom-file-upload">
-                  Update Profile Image
-                </label>
-                <input
-                  id="file-upload"
-                  className="transparent"
-                  type="file"
-                  onChange={handleImageChange}
-                />
+          <Modal show={showEditForm} onHide={() => setShowEditForm(false)} centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Profile</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="text-center">
+                <img src={profileImagePreview} alt="Profile Preview" className="profile-image-preview" />
               </div>
-              <div>
-                <label>Name:</label>
-                <input
-                  className="input-text"
-                  type="text"
-                  {...register('name', { required: true })}
-                />
-              </div>
-              <div>
-                <label>Surname:</label>
-                <input
-                  className="input-text"
-                  type="text"
-                  {...register('surname', { required: true })}
-                />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input
-                  className="input-text"
-                  type="email"
-                  {...register('email', { required: true })}
-                />
-              </div>
-              <div className="mt-3 d-flex">
-                <PrimaryBtn className="align-content-end" label="Update Profile" type="submit" />
-              </div>
-            </form>
-          </Modal.Body>
-        </Modal>
+              <form onSubmit={handleSubmit(handleProfileUpdate)}>
+                <div className="file-input-container">
+                  <label htmlFor="file-upload" className="custom-file-upload">
+                    Update Profile Image
+                  </label>
+                  <input id="file-upload" className="transparent" type="file" onChange={handleImageChange} />
+                </div>
+                <div>
+                  <label>Name:</label>
+                  <input className="input-text" type="text" {...register('name', { required: true })} />
+                </div>
+                <div>
+                  <label>Surname:</label>
+                  <input className="input-text" type="text" {...register('surname', { required: true })} />
+                </div>
+                <div>
+                  <label>Email:</label>
+                  <input className="input-text" type="email" {...register('email', { required: true })} />
+                </div>
+                <div className="mt-3 d-flex">
+                  <PrimaryBtn className="align-content-end" label="Update Profile" type="submit" />
+                </div>
+              </form>
+            </Modal.Body>
+          </Modal>
+          {user?.user_type === 'admin' && <div style={{ marginBottom: "125px" }}></div>}
 
-        <h1 className="mt-5">
-          <FontAwesomeIcon icon={faHeart} /> Liked Juices
-        </h1>
+          {/* Display liked juices for standard users only */}
+          {user.user_type === 'standard' && (
+            <>
+              <h1 className="mt-5">
+                <FontAwesomeIcon icon={faHeart} /> Liked Juices
+              </h1>
+              <JuiceCard juices={likedJuices} onRemoveJuice={removeLikedJuice} />
+            </>
+          )}
+        </Container>
 
-        {/* Ensure likedJuices is an array */}
-        <JuiceCard juices={likedJuices} onRemoveJuice={removeLikedJuice} />
-      </Container>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 }
 

@@ -3,6 +3,8 @@ import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
 import EditReviewCard from "../adminComponents/editReview";
 
+import Footer from "../components/footer";
+
 function ReviewPage() {
     const [flaggedReviews, setFlaggedReviews] = useState([]);
     const [users, setUsers] = useState([]);
@@ -81,6 +83,7 @@ function ReviewPage() {
                     </Row>
                 )}
             </Container>
+            <Footer />
         </>
     );
 }

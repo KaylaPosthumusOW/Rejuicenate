@@ -1,19 +1,23 @@
 import React from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form, Col, Row, Container } from "react-bootstrap";
 import PrimaryBtn from "../Buttons/primaryBtn";
 import '../styles/personalInfo.css';
 
+
 function PersonalOne({ onNext, handleInputChange, personalInfo }) {
   return (
+    <>
     <div className="container background mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <h2>Your Personalised Juice Journey</h2>
-        </div>
-        <div>
-          <p>Step 1/3</p>
-        </div>
-      </div>
+        <Container className="headerPersonal mb-2">
+            <Row className="d-flex justify-content-between align-items-center">
+                <Col xs={12} md={6}>
+                    <h2>Your Personalised Juice Journey</h2>
+                </Col>
+                <Col xs={12} md={6} className="text-md-end mt-md-0">
+                    <p>Step 1/3</p>
+                </Col>
+            </Row>
+        </Container>
 
       <Form onSubmit={(e) => { e.preventDefault(); onNext(); }}>
         <Form.Group className="mb-2" controlId="age">
@@ -33,6 +37,7 @@ function PersonalOne({ onNext, handleInputChange, personalInfo }) {
           <Form.Label>What is your gender?</Form.Label>
           <Form.Select
             name="gender"
+            style={{ border: '2px solid #397051' }}
             value={personalInfo.gender}
             onChange={handleInputChange}
             required
@@ -48,7 +53,9 @@ function PersonalOne({ onNext, handleInputChange, personalInfo }) {
           <Form.Label>What do you do for a living?</Form.Label>
           <Form.Control
             name="occupation"
+            placeholder="Profession"
             type="text"
+            style={{ border: '2px solid #397051' }}
             value={personalInfo.occupation}
             onChange={handleInputChange}
             required
@@ -103,7 +110,10 @@ function PersonalOne({ onNext, handleInputChange, personalInfo }) {
         <br />
         <PrimaryBtn type="submit" className="btn btn-primary" label="Next" />
       </Form>
+
+      
     </div>
+    </>
   );
 }
 

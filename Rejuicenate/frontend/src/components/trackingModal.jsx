@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useUser } from '../context/UserContext';
+import PrimaryBtn from '../Buttons/primaryBtn';
 
 function TrackingModal({ show, handleClose, addTrackedData }) {
     const { user } = useUser();
@@ -26,6 +27,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
             console.error("User ID is not available.");
             return;
         }
+        const selectedJuice = juices.find(juice => juice._id === juiceId);
         const trackingData = {
             userId: user._id,
             day,
@@ -33,8 +35,9 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
             modifications,
             feelings,
             juiceId,
+            juiceName: selectedJuice?.juiceName || '', // Add juiceName if found
         };
-
+    
         try {
             const response = await axios.post("http://localhost:5001/trackedData/add", trackingData);
             addTrackedData(response.data); // Pass the new tracking data to the parent
@@ -43,7 +46,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
         } catch (error) {
             console.error("Error adding tracking data:", error);
         }
-    };
+    };    
 
     useEffect(() => {
         const fetchJuices = async () => {
@@ -73,17 +76,18 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
     );
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Add Tracking Data</Modal.Title>
+                <Modal.Title><h2>Add Tracking Data</h2></Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formDayDescription">
                         <Form.Label>Day Description</Form.Label>
                         <Form.Control
+                        style={{ border: "2px solid #F1A208" }}
                             as="textarea"
-                            rows={3}
+                            rows={2}
                             value={dayDescription}
                             onChange={(e) => setDayDescription(e.target.value)}
                             required
@@ -92,7 +96,9 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
                     <Form.Group controlId="formModifications">
                         <Form.Label>Modifications Made</Form.Label>
                         <Form.Control
-                            type="text"
+                        style={{ border: "2px solid #F1A208" }}
+                            as="textarea"
+                            rows={2}
                             value={modifications}
                             onChange={(e) => setModifications(e.target.value)}
                             required
@@ -101,6 +107,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
                     <Form.Group controlId="formFeelings">
                         <Form.Label>How You're Feeling</Form.Label>
                         <Form.Control
+                        style={{ border: "2px solid #F1A208" }}
                             type="text"
                             value={feelings}
                             onChange={(e) => setFeelings(e.target.value)}
@@ -108,8 +115,9 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
                         />
                     </Form.Group>
                     <Form.Group controlId="formJuiceSelect">
-                        <Form.Label>Juice</Form.Label>
+                        <Form.Label>What Juice did you drink?</Form.Label> 
                         <Form.Control
+                        style={{ border: "2px solid #F1A208" }}
                             as="select"
                             value={juiceId}
                             onChange={(e) => setJuiceId(e.target.value)}
@@ -123,7 +131,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
                             ))}
                         </Form.Control>
                     </Form.Group>
-                    <Button variant="primary" type="submit">Save Tracking Data</Button>
+                    <PrimaryBtn label="Save Tracking Data" variant="primary" type="submit"/>
                 </Form>
             </Modal.Body>
         </Modal>

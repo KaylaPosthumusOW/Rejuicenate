@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { AnimatePresence, motion } from "framer-motion";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BasicExample from "./components/navbar";
+import BasicExample from "./components/navbar"; // Assuming this will now include admin links
 import Homepage from "./pages/homepage";
 import BrowseJuices from "./pages/browseJuices";
 import LogIn from "./pages/logIn";
@@ -16,19 +16,18 @@ import ReviewPage from "./adminPages/reviewPage";
 import UserPage from "./adminPages/userAdmin";
 import EditJuices from "./adminPages/editJuice";
 import AdminAddJuice from "./adminPages/addJuice";
-import { UserProvider } from "./context/UserContext";
+import { UserProvider, useUser } from "./context/UserContext"; 
 import TrackProgress from "./pages/trackProgress";
 import PrivateRoute from "./components/privateRoute";
-import AdminNav from "./adminComponents/adminNav";
+import AdminContainer from "./components/adminContainer"; // Import your AdminContainer
 
 function App() {
   return (
     <UserProvider>
       <Router>
-        <BasicExample /> {/* Navbar remains fixed at the top */}
-        <AdminNavContainer /> {/* Conditionally renders AdminNav */}
+        <BasicExample />
         <div className="content-container">
-          <AnimatedRoutes /> {/* Route transitions will occur here */}
+          <AnimatedRoutes />
         </div>
       </Router>
     </UserProvider>
@@ -42,6 +41,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <div>
         <Routes location={location} key={location.key}>
+          {/* User Routes */}
           <Route path="/" element={<PageTransition><Homepage /></PageTransition>} />
           <Route path="/browseJuices" element={<PageTransition><BrowseJuices /></PageTransition>} />
           <Route path="/login" element={<PageTransition><LogIn /></PageTransition>} />
@@ -53,12 +53,12 @@ function AnimatedRoutes() {
           <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
           <Route path="/trackProgress" element={<PageTransition><TrackProgress /></PageTransition>} />
 
-          {/* Admin Routes Protected by PrivateRoute */}
+          {/* Admin Routes Wrapped in AdminContainer */}
           <Route 
             path="/admin/addJuice" 
             element={
               <PrivateRoute adminOnly={true}>
-                <PageTransition><AdminAddJuice /></PageTransition>
+                <AdminContainer><PageTransition><AdminAddJuice /></PageTransition></AdminContainer>
               </PrivateRoute>
             } 
           />
@@ -66,7 +66,7 @@ function AnimatedRoutes() {
             path="/admin/reviews" 
             element={
               <PrivateRoute adminOnly={true}>
-                <PageTransition><ReviewPage /></PageTransition>
+                <AdminContainer><PageTransition><ReviewPage /></PageTransition></AdminContainer>
               </PrivateRoute>
             } 
           />
@@ -74,7 +74,7 @@ function AnimatedRoutes() {
             path="/admin/users" 
             element={
               <PrivateRoute adminOnly={true}>
-                <PageTransition><UserPage /></PageTransition>
+                <AdminContainer><PageTransition><UserPage /></PageTransition></AdminContainer>
               </PrivateRoute>
             } 
           />
@@ -82,7 +82,7 @@ function AnimatedRoutes() {
             path="/admin/editJuices" 
             element={
               <PrivateRoute adminOnly={true}>
-                <PageTransition><EditJuices /></PageTransition>
+                <AdminContainer><PageTransition><EditJuices /></PageTransition></AdminContainer>
               </PrivateRoute>
             } 
           />
@@ -91,7 +91,6 @@ function AnimatedRoutes() {
     </AnimatePresence>
   );
 }
-
 
 function JuiceTransition({ children }) {
   return (
@@ -110,23 +109,15 @@ function JuiceTransition({ children }) {
 function PageTransition({ children }) {
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0 }}  // Start 100px down
-      animate={{ y: 0, opacity: 1 }}    // Move to original position
-      exit={{ y: -100, opacity: 0 }}    // Move 100px up when exiting
+      initial={{ y: 100, opacity: 0 }} 
+      animate={{ y: 0, opacity: 1 }} 
+      exit={{ y: -100, opacity: 0 }}  
       transition={{ duration: 0.4, ease: "easeInOut" }}
       className="page-transition"
     >
       {children}
     </motion.div>
   );
-}
-
-// Conditional AdminNav container
-function AdminNavContainer() {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-
-  return isAdminRoute ? <AdminNav /> : null; // Only show on admin pages
 }
 
 export default App;

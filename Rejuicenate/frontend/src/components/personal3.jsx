@@ -2,6 +2,8 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import PrimaryBtn from "../Buttons/primaryBtn";
 import SecondaryBtn from "../Buttons/secondaryBtn";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'; 
 import '../styles/personalInfo.css';
 
 function PersonalThree({ onNext, onPrevious, handleInputChange, personalInfo }) {
@@ -68,6 +70,7 @@ function PersonalThree({ onNext, onPrevious, handleInputChange, personalInfo }) 
         <Form.Group controlId="healthGoalLevel">
           <Form.Label>Set your health goal level (1-10): {personalInfo.healthGoalLevel || 5}</Form.Label>
           <Form.Control
+            className="slider-formControl"
             style={{ border: '2px solid #95445D' }}
             type="range"
             name="healthGoalLevel"
@@ -79,9 +82,15 @@ function PersonalThree({ onNext, onPrevious, handleInputChange, personalInfo }) 
           />
         </Form.Group>
 
-        <div className="d-flex justify-content-between mt-3">
-          <SecondaryBtn label="Back" onClick={onPrevious} />
-          <PrimaryBtn type="submit" label="Submit" />
+        <div className="mt-4 justify-content-inbetween">
+        <SecondaryBtn onClick={onPrevious} label={
+              <>
+                  <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                  Previous
+              </>
+          } />
+
+          <PrimaryBtn type="submit" label="Next" />
         </div>
       </Form>
     </div>

@@ -3,6 +3,12 @@
     height: 320px;
     border-radius: 50%;
     border: 7px solid #FEF9F3;
+    object-position: center;
+    object-fit: cover;
+}
+.center-image{
+  width: 320px;
+    height: 320px;
 }
 
 .profile-name {
@@ -29,10 +35,7 @@
     padding-top: 70px;
 }
 
-.personal-info{
-    margin-top: 140px;
-    text-align: right;
-}
+
 
 .personalInfo-click{
     color: #C65B7C;
@@ -84,7 +87,7 @@ form div {
   }
   
   .custom-file-upload {
-    display: inline-block;
+    margin: 0 auto;
     padding: 5px 10px; /* Adjust padding as needed */
     cursor: pointer;
     background-color: #70AA89; /* Button color */
@@ -101,6 +104,21 @@ form div {
   /* Optional: Additional styles for the label */
   .custom-file-upload:active {
     transform: scale(0.95); /* Scale effect on click */
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    /* Stack the columns for smaller screens */
+    .center-img {
+      margin: 0 auto !important;
+    }
+
+    .custom-file-upload {
+      margin-left: -30px ;
+    }
+    .profile-btns{
+      margin: 0 auto;
+    }
   }
   
 

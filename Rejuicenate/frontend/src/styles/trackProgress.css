@@ -6,40 +6,32 @@
 
 .spacer-line {
     width: 100%;
-    height: 1px;
+    height: 1.5px;
     background-color: #F1A208;
+    margin-bottom: 10px;
 }
 
 .tracking-yellow-bg {
     display: flex;
     justify-content: flex-end;
     background-color: #F7C76B;
-    height: 250px;
-    width: 28%;
+    height: 550px;
+    width: 26%;
     position: absolute;
     right: 0;
     margin-top: -50px;
-    z-index: 1;
+    z-index: 0;
 }
 
-.rotated-header {
-    transform: rotate(-90deg); /* Rotate the header */
-    margin-left: -400px;
-    
-  }
-  
-  .text-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the header and paragraph */
-    justify-content: center; /* Center vertically */
-  }
-  
-  .gm-text{
-    width: 70%;
-    margin-top: -100px;
-  }
+/* .tracking-card-bg{
+  margin: 10px 10px;
+} */
 
+/* .trackh1, p {
+  position: relative;
+  z-index: 2;
+} */
+ 
   .progress-circle {
     width: 300px;
     height: 300px;
@@ -61,11 +53,20 @@
     text-align: center; 
     margin: 0; 
   }
+
+.tracked-header{
+  margin-bottom: 2px;
+}
+
+
   
+  .progress-tracker{
+    margin-top: -70px;
+  }
   .progress-circle {
     background-color: #FCECCE;
-    width: 300px; /* Circle width */
-    height: 300px; /* Circle height */
+    width: 350px; /* Circle width */
+    height: 350px; /* Circle height */
     border: 5px solid #FEF9F3; /* Circle border color */
     border-radius: 50%; /* Makes it circular */
     margin-top: -200px;
@@ -87,4 +88,64 @@
     font-weight: 700;
   }
   
+
+  .goals{
+    /* border-left: 2px solid #f0ad4e;
+    border-top: 2px solid #f0ad4e; */
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  .motivations{
+    /* border-right: 2px solid #f0ad4e;
+    border-bottom: 2px solid #f0ad4e; */
+    padding: 20px;
+    text-align: right;
+    margin-top: -20px;
+  }
+
+  .goalsMotivationline{
+    width: 100%;
+    height: 2px;
+    margin: 0 auto;
+    background-color: #f0ad4e;
+  }
+
+  .goal-span{
+    color: #F1A208;
+  }
+
+  /* Responsiveness */
   
+  @media (max-width: 768px) {
+    /* Stack the columns for smaller screens */
+    .tracking-yellow-bg {
+      background-color: transparent;
+    }
+
+    .progress-tracker{
+      margin-top: -580px;
+    }
+
+    .progress-circle{
+      width: 250px;
+      height: 250px;
+    }
+
+    .goalsAndMotivations{
+      margin-top: 100px !important;
+    }
+
+    .rotated-header {
+      margin-top: 200px;
+    }
+
+    .trackMobileText{
+      display: none;
+    }
+
+    /* TrackedDataCard */
+    .tracking-card-bg {
+      padding: 20px;
+    }
+  }

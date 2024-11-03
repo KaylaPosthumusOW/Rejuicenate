@@ -6,6 +6,8 @@ import JuiceCard from "../components/juiceCard";
 import axios from "axios";
 import Footer from "../components/footer";
 
+import AboutUsImage from "../assets/aboutUs-img.jpg"
+
 function Homepage() {
   const { user } = useUser();
   const [juices, setJuices] = useState([]);
@@ -25,7 +27,6 @@ function Homepage() {
 
           // Fetch tracking data
           const trackingResponse = await axios.get(`http://localhost:5001/trackedData/${user._id}`);
-          console.log('Tracking Data:', trackingResponse.data); // Log the tracking data
           setTrackingCards(trackingResponse.data);
         } catch (err) {
           setError('Error fetching personal data.');
@@ -70,9 +71,6 @@ function Homepage() {
 
   // Calculate progress
   const filledPercentage = (trackingCards.length / (personalData?.fastDuration || 1)) * 100;
-  console.log('Tracking Cards:', trackingCards.length);
-  console.log('Fast Duration:', personalData?.fastDuration);
-  console.log('Filled Percentage:', filledPercentage);
 
   return (
     <>
@@ -99,19 +97,19 @@ function Homepage() {
 
         {/* About us sections */}
         <Row className="mt-5">
-          <Col lg="3">
-            <div></div>
-          </Col>
-          <Col lg="3">
-            <div></div>
+          <Col lg="4">
+            <div className="aboutUs-bg"></div>
+            <img className="aboutus-img" src={AboutUsImage} />
           </Col>
           <Col lg="1"></Col>
           <Col lg="5">
-            <h2>About Rejuicenate</h2>
-            <p>At ReJuicenate, we believe that small, healthy habits can spark big changes. We're here to make wellness simple, delicious, and accessible through a curated selection of juices designed to nourish your body and elevate your well-being. Whether you’re managing health challenges or just want to feel your best, we’re in your corner—one sip at a time. 🍊</p>
+            <h1 className="my-5">ABOUT Rejuicenate</h1>
+            <h4 className="ourMission-green">OUR MISSION</h4>
+            <p>At ReJuicenate, we believe that small, healthy habits can spark big changes. We're here to make wellness simple, delicious, and accessible through a curated selection of juices designed to nourish your body and elevate your well-being. Whether you’re managing health challenges or just want to feel your best, we’re in your corner—one sip at a time.</p>
           </Col>
         </Row>
       </Container>
+      {/* <div className="aboutUs-bg"></div> */}
 
       <Footer />
     </>

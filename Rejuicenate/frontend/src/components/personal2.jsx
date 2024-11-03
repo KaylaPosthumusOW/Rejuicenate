@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Form, Badge } from "react-bootstrap";
+import { Form, Badge, Container, Row, Col } from "react-bootstrap";
 import PrimaryBtn from "../Buttons/primaryBtn";
 import SecondaryBtn from "../Buttons/secondaryBtn";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'; 
 import "../styles/personalInfo.css";
 
 function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
@@ -77,10 +79,16 @@ function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
 
   return (
     <div className="container background-yellow mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>Your Personalised Juice Journey</h2>
-        <p>Step 2/3</p>
-      </div>
+      <Container className="headerPersonal mb-2">
+            <Row className="d-flex justify-content-between align-items-center">
+                <Col xs={12} md={6}>
+                    <h2>Your Personalised Juice Journey</h2>
+                </Col>
+                <Col xs={12} md={6} className="text-md-end mt-md-0">
+                    <p>Step 2/3</p>
+                </Col>
+            </Row>
+        </Container>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="healthConditions">
@@ -96,8 +104,8 @@ function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
                   onClick={() => handleCategoryClick(category._id)}
                   style={{
                     cursor: "pointer",
-                    backgroundColor: selectedHealthConditions.includes(category._id) ? "#B57A06" : "#E0E0E0",
-                    color: selectedHealthConditions.includes(category._id) ? "#FFFFFF" : "#000000",
+                    backgroundColor: selectedHealthConditions.includes(category._id) ? "#201E1F" : "#E0E0E0",
+                    color: selectedHealthConditions.includes(category._id) ? "#B57A06" : "#000000",
                   }}
                 >
                   {category.category}
@@ -116,7 +124,7 @@ function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
             required
           >
             <option value="">Allergies?</option>
-            {["Dairy", "Gluten", "Peanuts", "Shellfish", "Other"].map((allergyOption, index) => (
+            {["Dairy", "Gluten", "Peanuts", "Shellfish", "Other", "None"].map((allergyOption, index) => (
               <option key={index} value={allergyOption}>
                 {allergyOption}
               </option>
@@ -158,8 +166,14 @@ function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
           )}
         </Form.Group>
 
-        <div className="mt-4">
-          <SecondaryBtn onClick={onPrevious} label="Previous" />
+        <div className="mt-4 justify-content-inbetween">
+        <SecondaryBtn onClick={onPrevious} label={
+              <>
+                  <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                  Previous
+              </>
+          } />
+
           <PrimaryBtn type="submit" label="Next" />
         </div>
       </Form>

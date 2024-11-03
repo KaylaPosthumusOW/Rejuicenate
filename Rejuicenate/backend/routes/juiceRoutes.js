@@ -93,19 +93,13 @@ router.put('/update/:id', upload.single('image'), async (req, res) => {
 });
 
 // Route to delete a juice
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/deleteJuice/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedJuice = await Juice.findByIdAndDelete(id);
-        
-        if (!deletedJuice) {
-            return res.status(404).json({ error: 'Juice not found' });
-        }
-
-        res.status(200).json({ message: 'Juice deleted successfully!' });
+        const juiceId = req.params.id;
+        await Juice.deleteOne({ _id: juiceId });
+        res.status(200).json({ message: 'Juice deleted successfully' });
     } catch (error) {
-        console.error('Error deleting juice:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Failed to delete juice' });
     }
 });
 

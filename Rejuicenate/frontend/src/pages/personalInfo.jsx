@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PersonalOne from "../components/personal1";
 import PersonalTwo from "../components/personal2";
 import PersonalThree from "../components/personal3";
@@ -6,13 +7,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 import "../styles/personalInfo.css";
 import { useUser } from '../context/UserContext';
+import Footer from "../components/footer";
 
 function PersonalInfo() {
   const [currentStep, setCurrentStep] = useState(1);
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const [personalInfo, setPersonalInfo] = useState({
-    userId: user ? user._id : "", // Initialize userId from context
+    userId: user ? user._id : "",
     age: "",
     gender: "",
     occupation: "",
@@ -28,12 +31,11 @@ function PersonalInfo() {
     healthConditions: "",
   });
 
-  // Update userId when user changes
   useEffect(() => {
     if (user) {
       setPersonalInfo((prev) => ({
         ...prev,
-        userId: user._id || prev.userId, // Only update if user._id exists
+        userId: user._id || prev.userId,
       }));
     }
   }, [user]);
@@ -52,7 +54,6 @@ function PersonalInfo() {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  // Handle changes to input fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prev) => ({
@@ -61,26 +62,26 @@ function PersonalInfo() {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    console.log("Personal Info to Submit:", personalInfo); // Log personalInfo before submission
+    e.preventDefault();
+    console.log("Personal Info to Submit:", personalInfo);
 
-    // Simple validation to check if required fields are filled
     const requiredFields = ['userId', 'age', 'gender', 'occupation', 'weight', 'height', 'activityLevel', 'fastDuration', 'motivation', 'healthGoals'];
-    const missingFields = requiredFields.filter(field => personalInfo[field] === undefined || personalInfo[field] === "");
+    const missingFields = requiredFields.filter(field => !personalInfo[field]);
 
     if (missingFields.length > 0) {
       console.error("Missing required fields:", missingFields);
-      return; // Exit if any required field is missing
+      return;
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/personalInfo/add", personalInfo); // Send personalInfo including userId
+      const response = await axios.post("http://localhost:5001/personalInfo/add", personalInfo);
       console.log("Personal information saved successfully:", response.data);
-      handleNext(); // Move to the next step after successful submission
+
+      // Navigate to home page after successful save
+      navigate('/');
     } catch (error) {
-      console.error("Error saving personal information:", error.response.data);
+      console.error("Error saving personal information:", error.response?.data || error.message);
     }
   };
 
@@ -89,12 +90,13 @@ function PersonalInfo() {
     animate: { opacity: 1 },
     exit: { opacity: 0 },
     transition: {
-      duration: 0.5, // Half-second duration for smooth fading
-      ease: "easeInOut", // Smooth easing curve
+      duration: 0.5,
+      ease: "easeInOut",
     },
   };
 
   return (
+    <>
     <div className="personal-container">
       <AnimatePresence>
         {currentStep === 1 && (
@@ -120,7 +122,7 @@ function PersonalInfo() {
         {currentStep === 3 && (
           <motion.div key="personal-three" {...animationProps}>
             <PersonalThree
-              onNext={handleSubmit} // Submit on the final step
+              onNext={handleSubmit} 
               onPrevious={handlePrevious}
               handleInputChange={handleInputChange}
               personalInfo={personalInfo}
@@ -129,6 +131,9 @@ function PersonalInfo() {
         )}
       </AnimatePresence>
     </div>
+    
+    <Footer />
+    </>
   );
 }
 

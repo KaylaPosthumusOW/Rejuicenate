@@ -8,16 +8,7 @@
     border-bottom-right-radius: 120px;
 }
 
-.align-content-center {
-    display: flex;
-    align-items: center; /* Aligns items vertically in the center */
-    gap: 20px; /* Adds space between the items */
-  }
-  
-  .button-container {
-    /* Optional: If you want the button to have specific styling */
-  }
-  
+
   .back-button{
     margin-top: 30px;
   }
@@ -32,12 +23,6 @@
     margin-left: -50px;
     margin-top: 10px;
     width: 80%;
-  }
-
-  .button-container {
-    display: flex; /* Use flexbox for horizontal alignment */
-    align-items: center; /* Align items vertically in the center */
-    margin-top: 10px; /* Space between elements */
   }
   
   .heart-container {
@@ -65,5 +50,85 @@
 .star-icon {
     color: gold; /* Change to desired star color */
     margin-right: 2px; /* Spacing between stars */
+  }
+
+  .green-text{
+    color: #397051;
+  }
+
+  .categoryName{
+    font-weight: 600;
+    color: #397051;
+  }
+
+
+  /* Add Review Form */
+  .addReviewForm{
+    margin-top: 40px;
+    border: 2px solid #4C956C;
+    padding: 30px;
+    border-radius: 20px;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    /* Stack the columns for smaller screens */
+    .button-container {
+      flex-direction: column; /* Stack buttons vertically */
+      align-items: flex-start; /* Align items to the start */
+      margin-bottom: 1rem; /* Space below the buttons */
+    }
+  
+    /* Reduce margins for smaller screens */
+    .mt-4, .mt-3 {
+      margin-top: 1.5rem !important; /* Smaller top margins */
+    }
+    
+    /* Review cards should occupy full width on small screens */
+    .review-card {
+      flex: 1 0 100%; /* Full width for review cards */
+    }
+
+    .addReviewForm{
+      margin-top: -20px;
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    h1 {
+      font-size: 2rem; /* Smaller heading size for extra small screens */
+    }
+  
+    h2 {
+      font-size: 1.75rem; /* Smaller size for h2 */
+    }
+  
+    h3, h4 {
+      font-size: 1.25rem; /* Further reduce size for h3 and h4 */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .juice-image {
+      position: absolute; /* Allows you to position the image */
+      top: 60px; /* Distance from the top */
+      right: 0; 
+      width: 300px !important; 
+      height: 500px !important; /* Maintain aspect ratio */
+      border-bottom-left-radius: 100px; /* Apply bottom-left border radius */
+      border-bottom-right-radius: 0 !important;
+      z-index: 1; /* Ensure it stays above other elements if necessary */
+    }
+  
+    .recipe-content {
+      margin-top: 400px !important;
+    }
+
+    .category-text{
+      margin-left: 0 !important;
+      margin-top: -10px !important;
+      width: 100%;
+    }
   }
   

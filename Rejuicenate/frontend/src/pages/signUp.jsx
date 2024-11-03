@@ -1,118 +1,141 @@
-import GreenPattern from '../assets/green pattern.png';
-
-import '../styles/SignUpIn.css';
 import React, { useState } from "react";
-import { Form, InputGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Col, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import GreenPattern from '../assets/green pattern.png';
 import PrimaryBtn from "../Buttons/primaryBtn";
-import axios from 'axios';
+import '../styles/SignUpIn.css';
+import { useUser } from '../context/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function SignUp() {
-  // State to handle user input
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType] = useState('standard'); // Default user_type is 'standard'
-  const [profileImage] = useState('https://images.app.goo.gl/zkhQbtxLMPSUNj4t8'); // Default profile image
+  const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useUser();
+  const navigate = useNavigate();
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    
+
     const newUser = {
       name,
       surname,
       email,
       password,
-      user_type: userType,  // Default is 'standard'
-      profile_image: profileImage,  // Default profile image
+      user_type: 'standard',
+      profile_image: 'https://images.app.goo.gl/zkhQbtxLMPSUNj4t8', // Default profile image
     };
 
     try {
-      // Axios POST request to save the user in the database
-      const response = await axios.post('http://localhost:5001/users/add', newUser);
-      console.log(response.data); // Response after successfully saving the user
-      alert("User registered successfully!");
+      // Register the user
+      await axios.post('http://localhost:5001/users/add', newUser);
+
+      // Log the user in immediately after registration
+      const loginResponse = await axios.post('http://localhost:5001/users/login', {
+        email,
+        password,
+      });
+
+      const { token, user } = loginResponse.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
+
+      // Redirect to appropriate page based on user type
+      if (user.user_type === 'admin') {
+        navigate('/admin/addJuice');
+      } else {
+        navigate('/personalinfo');
+      }
     } catch (error) {
-      console.error('Error adding user:', error);
-      alert("Error registering user.");
+      console.error('Signup or login error:', error);
+      alert("There was an issue with signup or login. Please try again.");
     }
   };
 
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <div>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-4">
-            <img className="signUp-img" src={GreenPattern} alt="Fruit and Veg Pattern" />
-          </div>
-          <div className="col-8 signUpform">
-            <h2>Welcome to Rejuicenate! </h2>
-            <p>Create your account to start your journey towards rejuvenation, and a better you through the power of juicing.</p>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="firstname">
-                <Form.Label>Name</Form.Label>
+    <div className="container-fluid">
+      <Row>
+        <Col lg="8" xs="12" className="signUpform">
+          <h2>Welcome to Rejuicenate!</h2>
+          <p>Create your account to start your journey towards rejuvenation, and a better you through the power of juicing.</p>
+          <Form onSubmit={handleSignUp}>
+            <Form.Group className="mb-3" controlId="firstname">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                className="formInput"
+                type="text"
+                placeholder="Enter your first name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="surname">
+              <Form.Label>Surname</Form.Label>
+              <Form.Control
+                className="formInput"
+                type="text"
+                placeholder="Enter your surname"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                className="formInput"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <InputGroup>
                 <Form.Control
                   className="formInput"
-                  type="text"
-                  placeholder="Enter your first name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-              </Form.Group>
+                <InputGroup.Text onClick={togglePasswordVisibility} style={{ cursor: "pointer" }}>
+                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                </InputGroup.Text>
+              </InputGroup>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="surname">
-                <Form.Label>Surname</Form.Label>
-                <Form.Control
-                  className="formInput"
-                  type="text"
-                  placeholder="Enter your surname"
-                  value={surname}
-                  onChange={(e) => setSurname(e.target.value)}
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  className="formInput"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="password">
-                <Form.Label>Password</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    className="formInput"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <InputGroup.Text></InputGroup.Text>
-                </InputGroup>
-              </Form.Group>
-
-              <PrimaryBtn label="Sign Up" type="submit" />
-              <p className="mt-3">
-                Already have an account?{" "}
-                <Link to="/login" className="link">
-                  Log In
-                </Link>
-              </p>
-            </Form>
-          </div>
-        </div>
-      </div>
+            <PrimaryBtn label="Sign Up" type="submit" />
+            <p className="mt-3">
+              Already have an account?{" "}
+              <Link to="/login" className="link">
+                Log In
+              </Link>
+            </p>
+          </Form>
+        </Col>
+        <Col lg="4">
+          <img className="signUp-img d-none d-md-block" src={GreenPattern} alt="Fruit and Veg Pattern" />
+        </Col>
+      </Row>
     </div>
   );
 }

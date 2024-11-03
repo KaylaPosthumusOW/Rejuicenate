@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error fetching liked juices.' });
   }
 });
+
 // POST route to add a liked juice
 router.post('/add', async (req, res) => {
   const { userId, juiceId } = req.body;
@@ -58,7 +59,7 @@ router.delete('/deleteLikedJuiceByJuiceId/:juiceId', async (req, res) => {
   const { juiceId } = req.params;
 
   try {
-    const objectId = ObjectId(juiceId);
+    const objectId = new ObjectId(juiceId);
 
     // Find and delete all liked juices that match the juiceId
     const deletedJuices = await LikedJuice.deleteMany({ juiceId: objectId });
@@ -69,11 +70,19 @@ router.delete('/deleteLikedJuiceByJuiceId/:juiceId', async (req, res) => {
       return res.status(404).send({ message: 'No liked juices found for this juiceId' });
     }
   } catch (error) {
-    console.error('Error deleting liked juices:', error);
     return res.status(500).send({ error: 'Internal Server Error' });
   }
 });
 
+router.delete('/juice/:juiceId', async (req, res) => {
+  try {
+      const juiceId = req.params.juiceId;
+      await LikedJuice.deleteMany({ "juiceId.$oid": juiceId });
+      res.status(200).json({ message: 'Associated likedJuices deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to delete likedJuices' });
+  }
+});
 
 
 
