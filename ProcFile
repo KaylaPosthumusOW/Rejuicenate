@@ -1,2 +1,2 @@
-web: npm run start-backend
-web: npm start --prefix rejuicenate/frontend
+web: npm start
+
