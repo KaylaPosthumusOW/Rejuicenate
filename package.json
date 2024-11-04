@@ -8,7 +8,7 @@
     "start": "npm run start-backend",
     "start-frontend": "npm install --prefix rejuicenate/frontend && npm run start --prefix rejuicenate/frontend",
     "start-backend": "npm install --prefix rejuicenate/backend && npm run start --prefix rejuicenate/backend",
-    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "npm start --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
