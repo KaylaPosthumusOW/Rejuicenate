@@ -193,7 +193,7 @@ function JuiceRecipe() {
             {/* Add Review Form */}
             <AddReview juiceId={juiceId} userId={user._id} onAddReview={addReview} />
 
-            <h2 className="mt-5">Other users Reviews</h2>
+            <h2 className="mt-5">What Others Are Saying</h2>
             <Row className="mt-3">
                {reviews.map((review, index) => (
                   <Col md={4} key={review._id}>

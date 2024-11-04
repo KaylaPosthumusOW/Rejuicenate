@@ -18,7 +18,7 @@ function JuiceCard({ juices }) {
                     className="juice-img"
                   />
                   <div className="card-content">
-                    <h2 className="mb-3">{juice.juiceName}</h2>
+                    <h3 className="mb-3">{juice.juiceName}</h3>
                     <PrimaryBtn label="Recipe" />
                   </div>
                 </div>

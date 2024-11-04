@@ -22,7 +22,7 @@
   
   .filled-line {
     height: 10px; /* Height of the filled part */
-    background-color: #F4B539; /* Color for the filled portion */
+    background-color: #FEF9F3; /* Color for the filled portion */
     border-radius: 5px; /* Optional: to round the edges */
     width: 0; /* Start with width 0 */
     transition: width 1s ease;
