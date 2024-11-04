@@ -8,7 +8,7 @@
 
 <!-- HEADER SECTION -->
 <h5 align="center" style="padding:0;margin:0;">Kayla Posthumus - 231096</h5>
-<h6 align="center">DV200 Term 2</h6>
+<h6 align="center">DV200 Term 4</h6>
 </br>
 <p align="center">
 
