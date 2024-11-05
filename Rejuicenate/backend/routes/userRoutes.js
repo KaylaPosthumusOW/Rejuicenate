@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/User'); // Adjust the path as necessary
-const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
+const bcrypt = require('bcryptjs');
+
 const router = express.Router();
 const jwt = require("jsonwebtoken"); // You may want to use this for token generation later
 
