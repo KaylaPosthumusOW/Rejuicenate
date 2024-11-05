@@ -4,6 +4,7 @@ import '../styles/browseJuices.css';
 import PrimaryBtn from "../Buttons/primaryBtn";
 
 function EditJuiceCards({ juices, onJuiceClick }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   return (
     <Container>
       <Row className="g-3">
@@ -16,7 +17,7 @@ function EditJuiceCards({ juices, onJuiceClick }) {
               >
                 <div className="card overlay">
                   <img
-                    src={`http://localhost:5001/${juice.image}`} // Use backticks here
+                    src={`${apiUrl}/${juice.image}`} // Use backticks here
                     alt={juice.juiceName}
                     className="juice-img"
                   />

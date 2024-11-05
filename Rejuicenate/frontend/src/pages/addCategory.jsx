@@ -8,10 +8,12 @@ function AddCategory() {
   const [dietaryMods, setDietaryMods] = useState("");
   const [generalRecs, setGeneralRecs] = useState("");
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5001/categories/add", {
+      const response = await axios.post(`${apiUrl}/categories/add`, {
         category,
         description, // Include description in the request
         dietaryMods,

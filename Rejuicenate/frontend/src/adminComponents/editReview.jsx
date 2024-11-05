@@ -9,6 +9,7 @@ import { faFlag } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function EditReviewCard({ commentText, personalTip, userProfileImage, userName, rating, isFlagged, onUnflag, onDelete }) {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
@@ -24,8 +25,8 @@ function EditReviewCard({ commentText, personalTip, userProfileImage, userName, 
     };
 
     const profileImageUrl = userProfileImage 
-        ? `http://localhost:5001/profileImages/${userProfileImage}` 
-        : 'http://localhost:5001/images/default.png';
+        ? `${apiUrl}/profileImages/${userProfileImage}` 
+        : '${apiUrl}/images/default.png';
 
     return (
         <div className="review-bg p-3 mb-4">

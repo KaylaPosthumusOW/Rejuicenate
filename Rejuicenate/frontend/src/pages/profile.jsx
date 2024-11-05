@@ -52,7 +52,7 @@ function ProfilePage() {
 
       const updatedProfileImageUrl = user.profile_image
         ? `${apiUrl}/profileImages/${encodeURIComponent(user.profile_image)}`
-        : 'http://localhost:5001/images/default.png';
+        : `${apiUrl}/images/default.png`;
 
       setProfileImageUrl(updatedProfileImageUrl);
       setProfileImagePreview(updatedProfileImageUrl);
@@ -84,7 +84,7 @@ function ProfilePage() {
       localStorage.setItem('user', JSON.stringify(response.data));
       const updatedProfileImageUrl = response.data.profile_image
         ? `${apiUrl}/profileImages/${encodeURIComponent(response.data.profile_image)}`
-        : 'http://localhost:5001/images/default.jpg';
+        : `${apiUrl}/images/default.jpg`;
 
       setProfileImageUrl(updatedProfileImageUrl);
       setShowEditForm(false);

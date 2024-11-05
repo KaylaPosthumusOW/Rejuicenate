@@ -24,7 +24,7 @@ function ReviewCard({ commentText, personalTip, userProfileImage, userName, rati
 
   const profileImageUrl = userProfileImage 
     ? `${apiUrl}/profileImages/${userProfileImage}` 
-    : 'http://localhost:5001/images/default.png';
+    : `${apiUrl}/images/default.png`;
 
   return (
     <div className="review-bg p-3 mb-4">

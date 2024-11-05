@@ -16,6 +16,8 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
         name: 'instructions'
     });
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
 
@@ -35,7 +37,7 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
                 const instructions = JSON.parse(juice.instructions[0] || '[]');
                 instructions.forEach(step => appendInstruction({ value: step }));
 
-                setPreviewImage(`http://localhost:5001/${juice.image}`);
+                setPreviewImage(`${apiUrl}/${juice.image}`);
             }
         }
     }, [show, juice, setValue, appendIngredient, appendInstruction, reset]);
@@ -55,7 +57,7 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
         if (image) formDataToSend.append('image', image);
 
         try {
-            const response = await axios.put(`http://localhost:5001/juices/update/${juice._id}`, formDataToSend, {
+            const response = await axios.put(`${apiUrl}/juices/update/${juice._id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -75,9 +77,9 @@ const JuiceModal = ({ show, handleClose, juice, onJuiceUpdated, onJuiceDeleted }
         }
 
         try {
-            await axios.delete(`http://localhost:5001/juices/deleteJuice/${juice._id}`);
-            await axios.delete(`http://localhost:5001/likedjuices/juice/${juice._id}`);
-            await axios.delete(`http://localhost:5001/reviews/juice/${juice._id}`);
+            await axios.delete(`${apiUrl}/juices/deleteJuice/${juice._id}`);
+            await axios.delete(`${apiUrl}/likedjuices/juice/${juice._id}`);
+            await axios.delete(`${apiUrl}/reviews/juice/${juice._id}`);
             onJuiceDeleted(juice._id);
             handleClose();
         } catch (error) {

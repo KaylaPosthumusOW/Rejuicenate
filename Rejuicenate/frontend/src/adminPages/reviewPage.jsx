@@ -9,10 +9,12 @@ function ReviewPage() {
     const [flaggedReviews, setFlaggedReviews] = useState([]);
     const [users, setUsers] = useState([]);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchFlaggedReviews = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/reviews");
+                const response = await axios.get(`${apiUrl}/reviews`);
                 const flagged = response.data.filter(review => review.isFlagged);
                 setFlaggedReviews(flagged);
             } catch (error) {
@@ -22,7 +24,7 @@ function ReviewPage() {
 
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/users");
+                const response = await axios.get(`${apiUrl}/users`);
                 setUsers(response.data);
             } catch (error) {
                 console.error("Error fetching users:", error);
@@ -36,8 +38,8 @@ function ReviewPage() {
     // Handle unflagging a review
     const handleUnflag = async (reviewId) => {
         try {
-            await axios.put(`http://localhost:5001/reviews/${reviewId}/unflag`, { isFlagged: false });
-            const response = await axios.get("http://localhost:5001/reviews");
+            await axios.put(`${apiUrl}/reviews/${reviewId}/unflag`, { isFlagged: false });
+            const response = await axios.get("${apiUrl}/reviews");
             const flagged = response.data.filter(review => review.isFlagged);
             setFlaggedReviews(flagged);
         } catch (error) {
@@ -48,7 +50,7 @@ function ReviewPage() {
     // Handle deleting a review
     const handleDelete = async (reviewId) => {
         try {
-            await axios.delete(`http://localhost:5001/reviews/${reviewId}`);
+            await axios.delete(`${apiUrl}/reviews/${reviewId}`);
             setFlaggedReviews(prevReviews => prevReviews.filter(review => review._id !== reviewId));
         } catch (error) {
             console.error("Error deleting review:", error);

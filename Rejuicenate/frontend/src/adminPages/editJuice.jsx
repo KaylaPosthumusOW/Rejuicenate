@@ -20,10 +20,12 @@ function EditJuices() {
     const [selectedJuice, setSelectedJuice] = useState(null);
     const [searchQuery, setSearchQuery] = useState(""); // State for the search input
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchJuices = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/juices");
+                const response = await axios.get(`${apiUrl}/juices`);
                 setJuices(response.data);
                 setFilteredJuices(response.data);
             } catch (error) {
