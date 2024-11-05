@@ -1,55 +1,61 @@
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../assets/Logo-Rejuicenate.svg';
-import { useUser } from '../context/UserContext'; // Import the user context
-import { NavLink } from 'react-router-dom'; // Import NavLink from react-router-dom
+import { useUser } from '../context/UserContext';
+import { NavLink } from 'react-router-dom';
 
 import DefaultImage from "../assets/default.jpg";
 import '../styles/navbar.css';
 
 function BasicExample() {
-  const { user } = useUser(); // Access the user details from context
+  const { user } = useUser();
+  const [expanded, setExpanded] = useState(false);
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const profileImageUrl = user?.profile_image 
     ? `${apiUrl}/profileImages/${encodeURIComponent(user.profile_image)}` 
-    : DefaultImage; // Use default image if none exists
+    : DefaultImage;
 
   return (
-    <Navbar expand="lg" className="nav">
+    <Navbar expand="lg" className="nav" expanded={expanded}>
       <Container>
         <Navbar.Brand href="/">
           <div className="flex content-center">
             <img className="logo" src={Logo} alt="Rejuicenate-Logo" />
           </div>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+        
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {/* Conditionally render links based on user type */}
             {user?.user_type === 'admin' ? (
               <>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/browseJuices" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Browse Juices
                 </NavLink>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/admin/addJuice" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Add Juice
                 </NavLink>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/admin/editJuices" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Edit Juices
                 </NavLink>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/admin/reviews" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
@@ -59,18 +65,21 @@ function BasicExample() {
             ) : (
               <>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Home
                 </NavLink>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/browseJuices" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Browse Juices
                 </NavLink>
                 <NavLink 
+                  onClick={() => setExpanded(false)}
                   to="/trackProgress" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
@@ -80,7 +89,7 @@ function BasicExample() {
             )}
           </Nav>
           <Nav>
-            <Nav.Link href="/profile">
+            <Nav.Link onClick={() => setExpanded(false)} href="/profile">
               <div className="user-info d-flex align-items-center">
                 {user ? (
                   <>
