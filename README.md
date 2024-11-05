@@ -23,7 +23,7 @@
       <a href="https://github.com/KaylaPosthumusOW/Rejuicenate"><strong>Explore the docs »</strong></a>
    <br />
    <br />
-   <a href="path/to/demonstration/video">View Demo</a>
+   <a href="./README_mockups/Demo%20Video.mp4">View Demo</a>
     ·
     <a href="https://github.com/KaylaPosthumusOW/Rejuicenate/issues">Report Bug</a>
     ·
