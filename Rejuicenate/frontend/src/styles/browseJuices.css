@@ -106,6 +106,9 @@
   border-radius: 25px;
   background-color: #4C956C;
   margin-left: 30px;
+  
+  object-position: center;
+  object-fit: cover;
 }
 
 .filled-star {
