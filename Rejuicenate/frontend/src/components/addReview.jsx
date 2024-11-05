@@ -12,6 +12,8 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
   const [personalTip, setPersonalTip] = useState(''); // Optional field for tips
   const [loading, setLoading] = useState(false); // Disable form during submission
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const AddReview = ({ juiceId, userId, onAddReview }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5001/reviews/add', reviewData);
+      const response = await axios.post(`${apiUrl}/reviews/add`, reviewData);
       console.log('Review added:', response.data);
 
       // Call the onAddReview function to update the parent state with the new review

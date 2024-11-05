@@ -20,6 +20,8 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState(profileImageUrl);
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   
   const { register, handleSubmit, setValue } = useForm();
 
@@ -32,7 +34,7 @@ function ProfilePage() {
     const fetchLikedJuices = async () => {
       if (user) {
         try {
-          const response = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
+          const response = await axios.get(`${apiUrl}/likedJuices/${user._id}`);
           setLikedJuices(response.data || []);
         } catch (error) {
           console.error('Error fetching liked juices:', error);
@@ -49,7 +51,7 @@ function ProfilePage() {
       setValue('email', user.email);
 
       const updatedProfileImageUrl = user.profile_image
-        ? `http://localhost:5001/profileImages/${encodeURIComponent(user.profile_image)}`
+        ? `${apiUrl}/profileImages/${encodeURIComponent(user.profile_image)}`
         : 'http://localhost:5001/images/default.png';
 
       setProfileImageUrl(updatedProfileImageUrl);
@@ -77,11 +79,11 @@ function ProfilePage() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5001/users/updateProfile/${user._id}`, formData);
+      const response = await axios.put(`${apiUrl}/users/updateProfile/${user._id}`, formData);
       setUser(response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
       const updatedProfileImageUrl = response.data.profile_image
-        ? `http://localhost:5001/profileImages/${encodeURIComponent(response.data.profile_image)}`
+        ? `${apiUrl}/profileImages/${encodeURIComponent(response.data.profile_image)}`
         : 'http://localhost:5001/images/default.jpg';
 
       setProfileImageUrl(updatedProfileImageUrl);
@@ -102,7 +104,7 @@ function ProfilePage() {
 
   const removeLikedJuice = async (juiceId) => {
     try {
-      await axios.delete(`http://localhost:5001/likedJuices/${user._id}/${juiceId}`);
+      await axios.delete(`${apiUrl}/likedJuices/${user._id}/${juiceId}`);
       setLikedJuices((prevLikedJuices) => prevLikedJuices.filter(juice => juice._id !== juiceId));
     } catch (error) {
       console.error('Error removing liked juice:', error);

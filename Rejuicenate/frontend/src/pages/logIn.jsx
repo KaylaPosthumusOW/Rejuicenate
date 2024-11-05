@@ -17,11 +17,13 @@ function LogIn() {
   const { setUser } = useUser();
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleLogin = async (e) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:5001/users/login', {
+      const response = await axios.post(`${apiUrl}/users/login`, {
         email,
         password,
       });

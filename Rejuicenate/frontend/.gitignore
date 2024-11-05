@@ -30,3 +30,6 @@ yarn-error.log*
 *.md text eol=lf
 *.txt text eol=lf
 
+
+# Backend
+# /.env

@@ -19,6 +19,8 @@ function SignUp() {
   const { setUser } = useUser();
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -33,10 +35,10 @@ function SignUp() {
 
     try {
       // Register the user
-      await axios.post('http://localhost:5001/users/add', newUser);
+      await axios.post(`${apiUrl}/users/add`, newUser);
 
       // Log the user in immediately after registration
-      const loginResponse = await axios.post('http://localhost:5001/users/login', {
+      const loginResponse = await axios.post(`${apiUrl}/users/login`, {
         email,
         password,
       });

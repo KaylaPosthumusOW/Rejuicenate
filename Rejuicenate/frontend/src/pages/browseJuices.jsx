@@ -17,11 +17,13 @@ function BrowseJuices() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Fetch all juices data from the backend
   useEffect(() => {
     const fetchJuices = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/juices");
+        const response = await axios.get(`${apiUrl}/juices`);
         setJuices(response.data);
         setFilteredJuices(response.data); // Initialize filtered juices
       } catch (error) {

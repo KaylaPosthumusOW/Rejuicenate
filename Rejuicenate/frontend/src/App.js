@@ -16,7 +16,7 @@ import ReviewPage from "./adminPages/reviewPage";
 import UserPage from "./adminPages/userAdmin";
 import EditJuices from "./adminPages/editJuice";
 import AdminAddJuice from "./adminPages/addJuice";
-import { UserProvider, useUser } from "./context/UserContext"; 
+import { UserProvider } from "./context/UserContext"; 
 import TrackProgress from "./pages/trackProgress";
 import PrivateRoute from "./components/privateRoute";
 import AdminContainer from "./components/adminContainer"; // Import your AdminContainer

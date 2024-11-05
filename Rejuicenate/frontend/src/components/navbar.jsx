@@ -11,8 +11,10 @@ import '../styles/navbar.css';
 function BasicExample() {
   const { user } = useUser(); // Access the user details from context
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const profileImageUrl = user?.profile_image 
-    ? `http://localhost:5001/profileImages/${encodeURIComponent(user.profile_image)}` 
+    ? `${apiUrl}/profileImages/${encodeURIComponent(user.profile_image)}` 
     : DefaultImage; // Use default image if none exists
 
   return (

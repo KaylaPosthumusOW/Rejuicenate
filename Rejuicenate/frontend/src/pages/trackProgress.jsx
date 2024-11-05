@@ -19,16 +19,18 @@ function TrackProgress() {
   const [showModal, setShowModal] = useState(false); 
   const [showCongrats, setShowCongrats] = useState(false);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const filledHeight = (trackingCards.length / (personalData?.fastDuration || 1)) * 100;
 
   useEffect(() => {
     const fetchPersonalData = async () => {
       if (user) {
         try {
-          const response = await axios.get(`http://localhost:5001/personalInfo/${user._id}`);
+          const response = await axios.get(`${apiUrl}/personalInfo/${user._id}`);
           setPersonalData(response.data);
 
-          const trackingResponse = await axios.get(`http://localhost:5001/trackedData/${user._id}`);
+          const trackingResponse = await axios.get(`${apiUrl}/trackedData/${user._id}`);
           const trackingData = trackingResponse.data;
 
           // Fetch juice names for each entry
@@ -58,7 +60,7 @@ function TrackProgress() {
   const getJuiceName = async (juiceId) => {
     if (!juiceId) return null;
     try {
-      const response = await axios.get(`http://localhost:5001/juices/${juiceId}`);
+      const response = await axios.get(`${apiUrl}/juices/${juiceId}`);
       return response.data.juiceName;
     } catch (error) {
       console.error(`Error fetching juice with ID ${juiceId}:`, error);

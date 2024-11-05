@@ -14,6 +14,8 @@ function PersonalInfo() {
   const { user } = useUser();
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [personalInfo, setPersonalInfo] = useState({
     userId: user ? user._id : "",
     age: "",
@@ -75,7 +77,7 @@ function PersonalInfo() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/personalInfo/add", personalInfo);
+      const response = await axios.post(`${apiUrl}/personalInfo/add`, personalInfo);
       console.log("Personal information saved successfully:", response.data);
 
       // Navigate to home page after successful save

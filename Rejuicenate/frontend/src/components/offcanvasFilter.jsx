@@ -10,6 +10,8 @@ function Filter({ onFilterChange }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState(new Set());
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -17,7 +19,7 @@ function Filter({ onFilterChange }) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/categories'); // Your categories endpoint
+        const response = await axios.get(`${apiUrl}/categories`); // Your categories endpoint
         setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);

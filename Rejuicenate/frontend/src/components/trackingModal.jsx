@@ -14,6 +14,8 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
     const [juices, setJuices] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const resetForm = () => {
         setDayDescription('');
         setModifications('');
@@ -39,7 +41,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
         };
     
         try {
-            const response = await axios.post("http://localhost:5001/trackedData/add", trackingData);
+            const response = await axios.post(`${apiUrl}/trackedData/add`, trackingData);
             addTrackedData(response.data); // Pass the new tracking data to the parent
             setDay(day + 1);
             resetForm();
@@ -51,7 +53,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
     useEffect(() => {
         const fetchJuices = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/juices');
+                const response = await axios.get(`${apiUrl}/juices`);
                 setJuices(response.data);
             } catch (error) {
                 console.error('Error fetching juices:', error);
@@ -64,7 +66,7 @@ function TrackingModal({ show, handleClose, addTrackedData }) {
     useEffect(() => {
         const fetchCurrentDay = async () => {
             if (user) {
-                const response = await axios.get(`http://localhost:5001/trackedData/${user._id}`);
+                const response = await axios.get(`${apiUrl}/trackedData/${user._id}`);
                 setDay(response.data.length + 1); // Sets day based on the current count + 1
             }
         };

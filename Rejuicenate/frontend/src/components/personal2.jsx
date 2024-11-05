@@ -13,11 +13,13 @@ function PersonalTwo({ onNext, handleInputChange, personalInfo, onPrevious }) {
   const [hasMedications, setHasMedications] = useState(false);
   const [medicationDetails, setMedicationDetails] = useState('');
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:5001/categories");
+        const response = await fetch(`${apiUrl}/categories`);
         if (!response.ok) throw new Error("Failed to fetch categories");
         const data = await response.json();
         const shuffled = data.sort(() => 0.5 - Math.random());

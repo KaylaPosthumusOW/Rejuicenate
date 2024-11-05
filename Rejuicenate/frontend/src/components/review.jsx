@@ -7,6 +7,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
 
 function ReviewCard({ commentText, personalTip, userProfileImage, userName, rating, isFlagged, onFlag }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -22,7 +23,7 @@ function ReviewCard({ commentText, personalTip, userProfileImage, userName, rati
   };
 
   const profileImageUrl = userProfileImage 
-    ? `http://localhost:5001/profileImages/${userProfileImage}` 
+    ? `${apiUrl}/profileImages/${userProfileImage}` 
     : 'http://localhost:5001/images/default.png';
 
   return (

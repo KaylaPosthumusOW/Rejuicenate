@@ -4,6 +4,7 @@ import '../styles/browseJuices.css';
 import PrimaryBtn from "../Buttons/primaryBtn";
 
 function JuiceCard({ juices }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   return (
     <Container>
       <Row className="g-3">
@@ -13,7 +14,7 @@ function JuiceCard({ juices }) {
               <Link to={`/juiceRecipe/${juice._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="card overlay">
                   <img
-                    src={`http://localhost:5001/${juice.image}`}
+                    src={`${apiUrl}/${juice.image}`}
                     alt={juice.juiceName}
                     className="juice-img"
                   />

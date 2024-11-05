@@ -20,19 +20,21 @@ function JuiceRecipe() {
    const [isLiked, setIsLiked] = useState(false); 
    const [likedJuiceId, setLikedJuiceId] = useState(null);
 
+   const apiUrl = process.env.REACT_APP_API_URL;
+
    const { user } = useUser(); 
 
    useEffect(() => {
     const fetchJuice = async () => {
         try {
-            const juiceResponse = await axios.get(`http://localhost:5001/juices/${juiceId}`);
+            const juiceResponse = await axios.get(`${apiUrl}/juices/${juiceId}`);
             setJuice(juiceResponse.data);
 
-            const reviewsResponse = await axios.get(`http://localhost:5001/reviews/${juiceId}`);
+            const reviewsResponse = await axios.get(`${apiUrl}/reviews/${juiceId}`);
             setReviews(reviewsResponse.data); 
 
             if (user) {
-                const likedResponse = await axios.get(`http://localhost:5001/likedJuices/${user._id}`);
+                const likedResponse = await axios.get(`${apiUrl}/likedJuices/${user._id}`);
                 const likedJuices = likedResponse.data;
                 const likedJuiceIds = likedJuices.map(like => like._id); // Assuming likedJuices contains juiceId
                 setIsLiked(likedJuiceIds.includes(juiceId));
@@ -70,7 +72,7 @@ function JuiceRecipe() {
    // Function to fetch updated reviews
    const fetchReviews = async () => {
       try {
-         const reviewsResponse = await axios.get(`http://localhost:5001/reviews/${juiceId}`);
+         const reviewsResponse = await axios.get(`${apiUrl}/reviews/${juiceId}`);
          setReviews(reviewsResponse.data);
       } catch (error) {
          console.error('Error fetching updated reviews:', error);
@@ -81,7 +83,7 @@ function JuiceRecipe() {
    const handleFlag = async (reviewId, index) => {
       try {
          // Update the review in the database to toggle the flag
-         await axios.put(`http://localhost:5001/reviews/${reviewId}/flag`);
+         await axios.put(`${apiUrl}/reviews/${reviewId}/flag`);
 
          // Refetch the reviews to get the updated state
          fetchReviews();
@@ -92,7 +94,7 @@ function JuiceRecipe() {
 
    const handleLike = async (juiceId) => {
       try {
-         const response = await axios.post('http://localhost:5001/likedJuices/add', {
+         const response = await axios.post('${apiUrl}/likedJuices/add', {
             userId: user._id, 
             juiceId: juiceId,
          });
@@ -107,7 +109,7 @@ function JuiceRecipe() {
    const handleDeleteLike = async () => {
       try {
         // Send the juiceId to the new delete route
-        const response = await axios.delete(`http://localhost:5001/likedJuices/deleteLikedJuiceByJuiceId/${juiceId}`);
+        const response = await axios.delete(`${apiUrl}/likedJuices/deleteLikedJuiceByJuiceId/${juiceId}`);
         console.log(response.data);
         
         // Update the state to reflect the change
@@ -186,7 +188,7 @@ function JuiceRecipe() {
                   </ol>
                </Col>
                <Col md={4}>
-                  <img src={`http://localhost:5001/${juice.image}`} alt={juice.juiceName} className="juice-image" />
+                  <img src={`${apiUrl}/${juice.image}`} alt={juice.juiceName} className="juice-image" />
                </Col>
             </Row>
 

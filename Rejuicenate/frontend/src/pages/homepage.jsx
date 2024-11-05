@@ -6,6 +6,7 @@ import JuiceCard from "../components/juiceCard";
 import axios from "axios";
 import Footer from "../components/footer";
 
+
 import AboutUsImage from "../assets/aboutUs-img.jpg"
 
 function Homepage() {
@@ -17,16 +18,18 @@ function Homepage() {
   const [error, setError] = useState(''); // State to manage error messages
   const [trackingCards, setTrackingCards] = useState([]); // State for tracking cards data
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Fetch personal data
   useEffect(() => {
     const fetchPersonalData = async () => {
       if (user) {
         try {
-          const response = await axios.get(`http://localhost:5001/personalInfo/${user._id}`);
+          const response = await axios.get(`${apiUrl}/personalInfo/${user._id}`);
           setPersonalData(response.data);
 
           // Fetch tracking data
-          const trackingResponse = await axios.get(`http://localhost:5001/trackedData/${user._id}`);
+          const trackingResponse = await axios.get(`${apiUrl}/trackedData/${user._id}`);
           setTrackingCards(trackingResponse.data);
         } catch (err) {
           setError('Error fetching personal data.');
@@ -43,7 +46,7 @@ function Homepage() {
   useEffect(() => {
     const fetchJuices = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/juices");
+        const response = await axios.get(`${apiUrl}/juices`);
         setJuices(response.data);
 
         // Filter juices based on user's health conditions after personal data is fetched

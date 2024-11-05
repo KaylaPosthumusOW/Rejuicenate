@@ -13,11 +13,13 @@ function AddJuiceComponent() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false); // Loading state to disable form during submission
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/categories');
+        const response = await axios.get(`${apiUrl}/categories`);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -45,7 +47,7 @@ function AddJuiceComponent() {
     formData.append('image', image); 
 
     try {
-      const response = await axios.post('http://localhost:5001/juices/add', formData);
+      const response = await axios.post(`${apiUrl}/juices/add`, formData);
       console.log('Juice added:', response.data);
 
       // Reset the form after successful submission
