@@ -6,6 +6,7 @@ import JuiceCard from "../components/juiceCard";
 import axios from "axios";
 import Footer from "../components/footer";
 
+import LoadingScreen from '../components/loadingscreen';
 
 import AboutUsImage from "../assets/aboutUs-img.jpg"
 
@@ -13,10 +14,10 @@ function Homepage() {
   const { user } = useUser();
   const [juices, setJuices] = useState([]);
   const [filteredJuices, setFilteredJuices] = useState([]);
-  const [personalData, setPersonalData] = useState(null); // State to hold personal data
-  const [loading, setLoading] = useState(true); // State to manage loading status
-  const [error, setError] = useState(''); // State to manage error messages
-  const [trackingCards, setTrackingCards] = useState([]); // State for tracking cards data
+  const [personalData, setPersonalData] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(''); 
+  const [trackingCards, setTrackingCards] = useState([]); 
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -65,7 +66,7 @@ function Homepage() {
   }, [personalData]); // Dependency on personalData to re-fetch juices when personal data is available
 
   if (loading) {
-    return <div>Loading...</div>; // Loading state
+    return <LoadingScreen />; // Loading state
   }
 
   if (error) {

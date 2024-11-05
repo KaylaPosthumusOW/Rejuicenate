@@ -12,6 +12,7 @@ import { faCarrot, faBookOpen, faArrowLeft } from '@fortawesome/free-solid-svg-i
 import ReviewCard from "../components/review";
 import AddReview from "../components/addReview";
 import Footer from "../components/footer";
+import LoadingScreen from "../components/loadingscreen";
 
 function JuiceRecipe() {
    const { juiceId } = useParams(); 
@@ -122,7 +123,7 @@ function JuiceRecipe() {
     
   
 
-   if (!juice) return <p>Loading...</p>;
+   if (!juice) return <LoadingScreen />;
 
    return (
       <div>

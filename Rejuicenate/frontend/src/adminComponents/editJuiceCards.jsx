@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom"; 
 import '../styles/browseJuices.css';
 import PrimaryBtn from "../Buttons/primaryBtn";
+import LoadingScreen from "../components/loadingscreen";
 
 function EditJuiceCards({ juices, onJuiceClick }) {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -30,7 +31,7 @@ function EditJuiceCards({ juices, onJuiceClick }) {
             </Col>
           ))
         ) : (
-          <p>No juices found. <Link className="browse-link" to="/browseJuices">Browse Juices!</Link></p>
+          <LoadingScreen />
         )}
       </Row>
     </Container>

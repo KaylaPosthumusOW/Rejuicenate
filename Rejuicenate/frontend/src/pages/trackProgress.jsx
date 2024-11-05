@@ -9,6 +9,7 @@ import TrackingModal from "../components/trackingModal";
 import TrackedDataCard from "../components/trackedData";
 import CongratsModal from "../components/congratsModal";
 import PrimaryBtn from "../Buttons/primaryBtn";
+import LoadingScreen from "../components/loadingscreen";
 
 function TrackProgress() {
   const { user } = useUser(); 
@@ -74,7 +75,7 @@ function TrackProgress() {
     }
   }, [trackingCards.length, personalData]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingScreen />;
   if (error) return <p>{error}</p>;
 
   const handleShowModal = () => setShowModal(true);
