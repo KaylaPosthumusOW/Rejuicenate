@@ -37,7 +37,7 @@ function LogIn() {
       if (user.user_type === 'admin') {
         navigate('/admin/addJuice');
       } else {
-        navigate('/');
+        navigate('/homepage');
       }
     } catch (error) {
       console.error('Login error:', error);

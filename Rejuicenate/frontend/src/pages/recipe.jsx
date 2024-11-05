@@ -94,7 +94,7 @@ function JuiceRecipe() {
 
    const handleLike = async (juiceId) => {
       try {
-         const response = await axios.post('${apiUrl}/likedJuices/add', {
+         const response = await axios.post(`${apiUrl}/likedJuices/add`, {
             userId: user._id, 
             juiceId: juiceId,
          });

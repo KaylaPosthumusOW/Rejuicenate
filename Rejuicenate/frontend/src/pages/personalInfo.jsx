@@ -81,7 +81,7 @@ function PersonalInfo() {
       console.log("Personal information saved successfully:", response.data);
 
       // Navigate to home page after successful save
-      navigate('/');
+      navigate('/homepage');
     } catch (error) {
       console.error("Error saving personal information:", error.response?.data || error.message);
     }

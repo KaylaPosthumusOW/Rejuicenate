@@ -66,7 +66,7 @@ function BasicExample() {
               <>
                 <NavLink 
                   onClick={() => setExpanded(false)}
-                  to="/" 
+                  to="/homepage" 
                   className={({ isActive }) => (isActive ? 'active-link' : 'nav-link') + ' font-body mx-3'}
                 >
                   Home
