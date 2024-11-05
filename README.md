@@ -273,12 +273,10 @@ For the ideation we designed a mood board and also determined our colour palette
 ![Stylesheet](./README_mockups/Stylesheet.png)
 
 ### Database
-![ExhibitoLogo](../exhibito/src/assets/mock-ups/Database.png)
+![ExhibitoLogo](./README_mockups/ER%20Diagram.png)
 
 
 <!-- DEVELOPMENT PROCESS -->
-
-Certainly! Here’s a filled-out version of the `Development Process` section:
 
 ---
 
@@ -405,6 +403,9 @@ Distributed under the MIT License. See `LICENSE` for more information.\
 
 <!-- ACKNOWLEDGEMENTS -->
 
-## Acknowledgements
+## Term Deliverables
+
+- **Open Brief Proposal** - [Open Brief Proposal](./README_mockups/DV200_T4_Proposal.pdf)
+- **Milestone Check Document** - [Open Brief Proposal](./README_mockups/Kayla%20Posthumus_Progress%20Milestone%20Check_DV200.pdf)
 
 <!-- all resources that you used and Acknowledgements here -->
