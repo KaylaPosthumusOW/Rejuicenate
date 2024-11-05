@@ -15,13 +15,11 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const uri = process.env.MONGODB_URI;
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);  // Exit if unable to connect
-  });
+mongoose.connect(process.env.MONGODB_URI, {
+  // No need for useNewUrlParser and useUnifiedTopology options in newer versions
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error("MongoDB connection error:", err));
 // Basic route
 app.get('/', (req, res) => {
   res.send('Backend is running!');
