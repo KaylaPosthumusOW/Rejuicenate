@@ -23,7 +23,7 @@
       <a href="https://github.com/KaylaPosthumusOW/Rejuicenate"><strong>Explore the docs »</strong></a>
    <br />
    <br />
-   <a href="./README_mockups/Demo%20Video.mp4">View Demo</a>
+   <a href="https://drive.google.com/file/d/1PEa32RISbyyg1mj82mA-4UsaJQz-_tTI/view?usp=sharing">View Demo</a>
     ·
     <a href="https://github.com/KaylaPosthumusOW/Rejuicenate/issues">Report Bug</a>
     ·
@@ -362,7 +362,7 @@ The `Development Process` outlines the technical implementations and functionali
 
 To see a run through of the application, click below:
 
-[View Demonstration](./README_mockups/Demo%20Video.mp4)
+[View Demonstration](https://drive.google.com/file/d/1PEa32RISbyyg1mj82mA-4UsaJQz-_tTI/view?usp=sharing)
 
 <!-- ROADMAP -->
 
