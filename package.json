@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run start-backend",
-    "start-frontend": "npm install --prefix rejuicenate/frontend && npm run start --prefix rejuicenate/frontend",
-    "start-backend": "npm install --prefix rejuicenate/backend && npm run start --prefix rejuicenate/backend",
-    "heroku-postbuild": "npm start --prefix Rejuicenate"
+    "start": "npm run start-backend && npm run start-frontend",
+  "start-frontend": "npm install --prefix rejuicenate/frontend && npm run start --prefix rejuicenate/frontend",
+  "start-backend": "npm install --prefix rejuicenate/backend && npm start --prefix rejuicenate/backend",
+  "heroku-postbuild": "npm install --prefix rejuicenate/frontend && npm run build --prefix rejuicenate/frontend"
   },
   "keywords": [],
   "author": "",
