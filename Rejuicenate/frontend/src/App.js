@@ -42,7 +42,10 @@ function AnimatedRoutes() {
       <div>
         <Routes location={location} key={location.key}>
           {/* User Routes */}
-          <Route path="/" element={<PageTransition><Homepage /></PageTransition>} />
+          <Route path="/" element={<PageTransition><SignUp /></PageTransition>} />
+
+          {/* Additional Routes */}
+          <Route path="/homepage" element={<PageTransition><Homepage /></PageTransition>} />
           <Route path="/browseJuices" element={<PageTransition><BrowseJuices /></PageTransition>} />
           <Route path="/login" element={<PageTransition><LogIn /></PageTransition>} />
           <Route path="/personalInfo" element={<PageTransition><PersonalInfo /></PageTransition>} />
