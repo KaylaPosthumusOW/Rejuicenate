@@ -362,7 +362,7 @@ The `Development Process` outlines the technical implementations and functionali
 
 To see a run through of the application, click below:
 
-[View Demonstration](path/to/video/demonstration)
+[View Demonstration](./README_mockups/Demo%20Video.mp4)
 
 <!-- ROADMAP -->
 
