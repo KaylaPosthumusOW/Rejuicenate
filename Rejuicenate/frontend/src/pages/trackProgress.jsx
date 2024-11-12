@@ -34,18 +34,8 @@ function TrackProgress() {
           const trackingResponse = await axios.get(`${apiUrl}/trackedData/${user._id}`);
           const trackingData = trackingResponse.data;
 
-          // Fetch juice names for each entry
-          const trackingDataWithJuices = await Promise.all(
-            trackingData.map(async (data) => {
-              const juiceName = await getJuiceName(data.juiceId); 
-              return {
-                ...data,
-                juiceName: juiceName || "Unknown Juice",
-              };
-            })
-          );
-
-          setTrackingCards(trackingDataWithJuices);
+          // Set tracking cards directly with juice name from data
+          setTrackingCards(trackingData);
         } catch (err) {
           setError('Error fetching data.');
           console.error(err);
@@ -57,17 +47,6 @@ function TrackProgress() {
 
     fetchPersonalData();
   }, [user]);
-
-  const getJuiceName = async (juiceId) => {
-    if (!juiceId) return null;
-    try {
-      const response = await axios.get(`${apiUrl}/juices/${juiceId}`);
-      return response.data.juiceName;
-    } catch (error) {
-      console.error(`Error fetching juice with ID ${juiceId}:`, error);
-      return null;
-    }
-  };
 
   useEffect(() => {
     if (personalData && trackingCards.length === personalData.fastDuration) {
@@ -83,10 +62,9 @@ function TrackProgress() {
   const handleCloseCongrats = () => setShowCongrats(false);
 
   const addTrackedData = async (newData) => {
-    const juiceName = await getJuiceName(newData.juiceId);
     const newCard = {
       ...newData,
-      juiceName: juiceName || "Unknown Juice",
+      juiceName: newData.juiceName || "Unknown Juice",
     };
     setTrackingCards((prevCards) => [...prevCards, newCard]);
     setShowModal(false);
